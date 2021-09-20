@@ -1,0 +1,1 @@
+export const MS_CART_EMPTY = 'Chưa có sản phẩm nào trong giỏ hàng';

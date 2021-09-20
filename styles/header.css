@@ -1,0 +1,158 @@
+header {
+  position: fixed;
+  height: 50px;
+  z-index: 1;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.header_body {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  width: 100%;
+}
+body {
+  margin-top: 50px;
+}
+
+.cart_detail{
+    position: relative;
+}
+.cart_detail i{
+    cursor: pointer;
+}
+.modal-cr{
+    display: none;
+    position: absolute;
+    background-color: white;
+    right: 0;
+    z-index: 1;
+    pointer-events: visible;
+    box-shadow: 0px 0px 5px 2px #9a9a9a;
+    border-radius: 8px;
+}
+.modal-cr-body{
+    background-color: white;
+   padding: 10px;
+   
+  
+}
+.modal-cr ul{
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 20%);
+}
+.modal-cr ul li{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+
+.cart-modal-pr_amount_name{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+.cart-modal-pr_amount{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.cart-modal-pr_amount div{
+    margin-right: 20px;
+}
+.name_cart_modal{
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.size_color_modal{
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin: 5px 0 10px 0;
+}
+.size_color_modal span{
+    display: inline-block;
+    font-size: 12px;
+}
+.img-cart{
+    width: 100px;
+}
+.modal-cr ul li img{
+    width: 80px;
+    height: 90px;
+   
+}
+.quantity-cart{
+    width: 20%;
+}
+
+.outside_Modal{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    left: 0;
+    
+    z-index: -1;
+}
+
+
+.btn-checkout{
+    
+    padding: 0;
+    
+     
+  
+}
+.btn-checkout a{
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+     background: lightskyblue;
+     font-weight: 500;
+     font-size: 18px;
+     transition: .5s;
+}
+.btn-checkout a:hover{
+    background: black;
+    color: white;
+}
+
+
+
+/*total===================*/
+.total_cart_modal{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0 20px 0;
+}
+.total_cart_modal p{
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+}
+.total_cart_modal span{
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+}
+/*scripts======================*/
+.ActiveModalCart{
+    display: block;
+}
