@@ -40,10 +40,11 @@ import * as types from "../constant/actionType";
 
 ]; */
 const Product = (state = initialSate, action) => {   
-   
+   var{color} = action;
     switch (action.type) {
         case types.FETCH_PRODUCT:
             return [...action.product]
+        
         default: return [...state];
     }
 }

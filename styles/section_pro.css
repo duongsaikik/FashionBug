@@ -11,7 +11,9 @@ p {
     line-height: 1.6;
     font-size: 1em;
 }
-
+a{
+  text-decoration: none;
+}
 .product-content-body {
   padding: 0;
   width: 100%;
@@ -23,10 +25,17 @@ p {
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
+
+}
+.product-content:hover{
+  border: 2px solid lightskyblue;
 }
 .product-img-content {
   position: relative;
+  margin: auto;
+ 
 }
+
 .product-img-content img {
   width: 100%;
   border-top-left-radius: calc(0.25rem - 1px);
@@ -69,6 +78,7 @@ p {
   transition: all 0.5s;
   transition-delay: 0s;
  text-decoration: none;
+ border-radius: 8px;
 }
 .product-img-content:hover>.product-detail-link{
   visibility: visible;
@@ -79,18 +89,24 @@ p {
   color: white;
 }
 .product-name_price-content{
-    padding: 1rem 0.5rem 1rem 0.5rem;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
 
 }
+.product-name_price-content a{
+  text-decoration: none;
+  color: black;
+  
+}
 .product-name_price-content h5{
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.2;
-    font-size: 13.5px;
+    font-size: 14px;
     margin: 0;
     margin-bottom: 0.75rem;
     text-align: left;
     height: 28px;
 }
+
 .product_price{
     display: flex;
     justify-content: space-between;
@@ -100,11 +116,16 @@ p {
     font-size: 13px;
 }
 .text-dark{
-    color: #343a40 !important;
+    color: lightskyblue !important;
     font-weight: 700 !important;
 }
 .text-discount{
     text-decoration: line-through;
+    
+}
+
+.section_item_color{
+  display: flex;
 }
 .product-action-content{
     padding: 0.75rem 1.25rem;
@@ -140,14 +161,41 @@ p {
 .product-action-content button:hover>.icon-cart{
     color: white;
 }
+.hove:hover{
+  border: 2px solid #d1d1d1;
+  border-radius: 50%;
+}
 
 @media screen and (min-width: 768px) {
   .product-content-body {
     width: 50%;
   }
+  .product-img-content {
+    position: relative;
+    margin: auto;
+    width: 200px;
+    height: 300px;
+  }
 }
 @media screen and (min-width: 997px) {
   .product-content-body {
+    width: 33.3%;
+  }
+  .product-img-content {
+    position: relative;
+    margin: auto;
+    width: 200px;
+    height: 300px;
+  }
+}
+@media screen and (min-width: 1200px){
+  .product-content-body {
     width: 25%;
+  }
+  .product-img-content {
+    position: relative;
+    margin: auto;
+    width: 200px;
+    height: 300px;
   }
 }

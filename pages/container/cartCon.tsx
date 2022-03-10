@@ -10,7 +10,7 @@ import { actDeleteInCart, actUpdateAmountCart,actDeleteAllCart  } from '../actio
 
 const CartContainer = (props) => { //props contain cart and cart contain product, quantity, and 1 action to delete cart of each other 
     const {cart} = props;
-    
+    const {actDeleteAllCart} = props;
    const Calculator = (cart) =>{
         var result = 0;
         if(cart.length > 0){
@@ -22,11 +22,15 @@ const CartContainer = (props) => { //props contain cart and cart contain product
    }
     const showTotal = (cart) =>{
         var result = null;
+        var arr = null;
+        
         if(cart.length > 0){
-            result = <Total cart={Calculator(cart)}/>;
+             arr = cart.map((item,index) =>{return item })
+                result = <Total cart={Calculator(cart)} arr={arr} actDeleteAllCart={actDeleteAllCart}/>;
+            }
+            return result;
         }
-        return result;
-    }
+           
     const showCartItem = (carts) =>{
         var result = Message.MS_CART_EMPTY;
         const {actDeleteInCart} = props;
@@ -38,7 +42,7 @@ const CartContainer = (props) => { //props contain cart and cart contain product
             }
         return result;
     }
-    const {actDeleteAllCart} = props;
+  
     return (
         <>          
             <Cart>      
@@ -57,12 +61,13 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = (dispatch,props) =>{
     return {  
-        actDeleteInCart:(id) =>{        
-            dispatch(actDeleteInCart(id));     
-        },
-         actUpdateAmountCart:(id,quantity) =>{
+        actDeleteInCart:(id,color,size) =>{    
              
-            dispatch(actUpdateAmountCart(id,quantity));     
+            dispatch(actDeleteInCart(id,color,size));     
+        },
+         actUpdateAmountCart:(product,quantity) =>{
+             
+            dispatch(actUpdateAmountCart(product,quantity));     
         },
         actDeleteAllCart:() =>{
             dispatch(actDeleteAllCart()); 

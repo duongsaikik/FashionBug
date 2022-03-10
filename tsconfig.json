@@ -10,6 +10,7 @@
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
+
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -22,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "public/js/calculator.js", "pages/cart/cartitem.js", "pages/reducers/productPre.js", "pages/reducers/index.js", "pages/reducers/cartPre.js", "pages/reducers/cartPre.js", "pages/constant/messages.js", "pages/cart/index.js", "pages/products/detail/detail.js", "pages/header.tsx"  ],
+, "public/js/calculator.js", "pages/cart/cartitem.js", "pages/reducers/productPre.js", "pages/reducers/index.js", "pages/reducers/cartPre.js", "pages/reducers/cartPre.js", "pages/constant/messages.js", "pages/cart/index.js", "pages/products/detail/detail.js", "pages/header.tsx", "pages/products/options.js", "pages/container/[catogrory]/[productContainer].js", "pages/products/section.js", "pages/index.tsx", "pages/_app.js"  ],
   "exclude": [
     "node_modules"
   ]

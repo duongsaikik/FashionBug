@@ -1,26 +1,14 @@
 
-import React, { useState, useEffect } from 'react';
-
-
-import Option from './options';
-
-const Product:React.FC<any> = ({children}) => {
+import React from 'react';
+const Product = (props) => {
+  
   return (
     <>
       <div className="body">
         <div className="containerr">
-          <div className="body-container">
-            <div className="body-nav" id="body-nav">
-              <div className="left-content">
-               <Option />
-              </div>
-            </div>
-            <div className="section-body">    
-              <section>
-               {children}
-              </section>
-            </div>
-          </div>
+                
+               {props.children} 
+     
         </div>
       </div>
     </>

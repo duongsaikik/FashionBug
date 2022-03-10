@@ -8,17 +8,19 @@ export const actAddtoCart = (product, quantity) =>{
     }
 }
 
-export const actDeleteInCart = (id) =>{
+export const actDeleteInCart = (id,color,size) =>{
     return {
         type:types.DElETE_IN_CART,
-        id:id
+        id:id,
+        color:color,
+        size:size
     }
 }
 
-export const actUpdateAmountCart = (id,quantity) =>{
+export const actUpdateAmountCart = (product,quantity) =>{
     return {
         type:types.UPDATE_AMOUNT_CART,
-        id:id,
+        product,
         quantity:quantity
     }
 }
@@ -48,5 +50,21 @@ export const actAddDetailToCart = (product,quantity) =>{
         type:types.ADD_DETAIL_TO_CART,
         product,
         quantity
+      
+    }
+}
+
+export const actFetchColor = (color) =>{
+    return {
+        type:types.ADD_FETCH_COLOR,
+        color
+        
+    }
+}
+export const actFetchSizer = (size) =>{
+    return {
+        type:types.ADD_FETCH_SIZE,
+        size
+        
     }
 }

@@ -10,13 +10,13 @@ const CartItem = (props) => {
  
     useEffect(() => {
         if (amount !== '') {
-             props.actUpdateAmountCart(item.product.id, Number(amount)); 
+             props.actUpdateAmountCart(item.product, Number(amount)); 
         }
     },[amount]);
     //props contain cart and cart contain product, quantity, and 1 action to delete cart of each other 
     //get item from props and include product and quantity
-    var onDeleteCart = (id) => {
-        props.actDeleteInCart(id); //push id to store reducer to get dispatch and delete cart
+    var onDeleteCart = (id,color,size) => {
+        props.actDeleteInCart(id,color,size); //push id to store reducer to get dispatch and delete cart
     }
     const ChangeAmount = (event) => {
        setAmount(quantity);
@@ -41,7 +41,7 @@ const CartItem = (props) => {
                     <div className="produt-name">
                         <p>{item.product.name} (Màu: {item.product.color}, Size: {item.product.size})
                         </p>
-
+                       
                         <div className="product-id">
                             <span>Mã sản phẩm : </span>
                             <span>{item.product.id}</span>
@@ -75,7 +75,7 @@ const CartItem = (props) => {
                         </div>
                     </div>
                     <div className="delete-product">
-                        <button className="btn-delete" onClick={() => { onDeleteCart(item.product.id) }}><i className="fas fa-trash-alt"></i></button>
+                        <button className="btn-delete" onClick={() => { onDeleteCart(item.product.id,item.product.color,item.product.size) }}><i className="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
 
