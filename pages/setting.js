@@ -1,16 +1,7 @@
 import React from "react";
 import SideBar from "../components/SideBar";
 import styled from "styled-components";
-import Link from "next/link";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEdit,
-  faFax,
-  faPhone,
-  faPlus,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+
 const ContentContainer = styled.div`
   padding-left: 250px;
 `;

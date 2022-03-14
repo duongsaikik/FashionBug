@@ -1,4 +1,4 @@
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.css';
 
 const BackgroundStory = () =>(
     <div className={styles.BGS}>
@@ -25,7 +25,7 @@ const BackgroundStory = () =>(
                             </table>
                         </div >
                         <div className={styles.specials}>
-                            <h1 className={styles.Fashiontype}><span className={styles.bigfontType}>B</span>ug's <span className={styles.bigfontType}>F</span>ashion</h1>
+                            <h1 className={styles.Fashiontype}><span className={styles.bigfontType}>B</span>ug <span className={styles.bigfontType}>F</span>ashion</h1>
                             <div className={styles.saleoffs}>
                                 <div className={styles.discountpercent}>
                                     <h1>Get up to <span className={styles.bigfontdiscount}>30%</span></h1>

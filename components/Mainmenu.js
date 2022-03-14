@@ -4,43 +4,7 @@ import styled from "styled-components";
 import { Login } from './Login';
 import { Register } from './Register';
 import cookieCutter from 'cookie-cutter';
-import axios from "axios";
-// var a=function(){
-//     console.log('hello');
-// }
-// var Tags={ 
-//     "NamKid":{
-//         "All":Array(100),
-//         "count":0
-//     },
-//     "NuKid":{
-//         "All":Array(100),
-//         "count":0
-//     },
-//     "NamAdult":{
-//         "All":Array(100),
-//         "count":0
-//     },
-//     "NuAdult":{
-//         "All":Array(100),
-//         "count":0
-//     }
-// };
-// function Tagsfilter(tag,filt){
-//     if(tag[0]==filt){
-//         var tmp=Tags[filt];
-//         for (let i = 0; i < tmp["count"]; i++) {
-//             if(tmp["All"][i]==tag[1]){
-//                 return "null";
-//             }
-//         }
-//         tmp["All"][tmp["count"]]=tag[1];
-//         tmp["count"]=tmp["count"]+1;
-//         console.log('a'+filt);
-//         return 'nam';
-//     }
-//     return "NULL";
-// }
+
 const Navbarmenu=styled.div`
 display: flex;
     height: 60px;

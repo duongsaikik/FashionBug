@@ -50,7 +50,7 @@ const StyledModalOverlay = styled.div`
             x
           </a>
         </StyledModalHeader>
-        {title && <StyledModalTitle>{title}</StyledModalTitle>}
+        {title &&{title}}
         <StyledModalBody>
           <h2>Ban</h2>
         </StyledModalBody>

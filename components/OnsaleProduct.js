@@ -1,38 +1,9 @@
-import styles from '../styles/Home.module.css'
+
 import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/dist/client/router';
 import Slider from 'react-slick';
 import Link from 'next/link';
 import NumberFormat from 'react-number-format';
-
-// function setimgs(tab){
-//     var re="imgs/img"+tab+".jpg";
-//     return re;
-// }
-// function setnames(tab){
-//     var re="Name "+tab;
-//     return re;
-// }
-// function setPrice(tab){
-//     var k=<span className={styles.strikethrough}>${tab*10+5}</span>;
-//     var re=<span>{k}{'  '}${tab*10}</span>
-//     return re;
-// }
-// function jjj(item){
-//     if((item.Tags)[0]=='nu'){
-//         return <li>
-//         <a className={styles.product}>
-//             <img className={styles.pro} src={item.Image}/>
-//             <a className={styles.produtName}>{item.Name}</a>
-//             <h4 >
-//                 {item.Price}
-//             </h4>
-//         </a>
-//         </li>  ;
-//     }else{
-//         return null;
-//     }
-// }
 
 export default function OnsaleProduct({data}){
  

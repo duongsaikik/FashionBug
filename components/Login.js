@@ -1,10 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 import cookieCutter from "cookie-cutter";
-import Router from "next/router";
-import { toast, ToastContainer } from "react-nextjs-toast";
+
 
 export const Login = ({ show, setShow, setShowRegister, setLoginstate }) => {
   const hide = () => {

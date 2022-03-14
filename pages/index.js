@@ -2,8 +2,7 @@ import Newproducts from "../components/Newproducts";
 import OnsaleProducts from "../components/OnsaleProducts";
 import BackgroundStory from "../components/BackgroundStory";
 import Frame from "../components/Frame";
-import cookies from "next-cookies";
-import Headerr from "../pages/header";
+
 export default function LandingPage({ data }) {
 
   return (

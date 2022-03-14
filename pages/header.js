@@ -6,12 +6,11 @@ import { actUpdateAmountCart, actDeleteInCart } from "./actions";
 import ModalCartHeader from "./cart/modal";
 import NumberFormat from "react-number-format";
 import Breadcrumb from "./breadcrumbs";
-import Nav from "react-bootstrap/Nav";
-import styled from "styled-components";
+
 import { Login } from "./Login";
 import Cookies from 'js-cookie'
 import cookieCutter from "cookie-cutter";
-import cookies from "next-cookies";
+
 
 import * as Message from "./constant/messages";
 
