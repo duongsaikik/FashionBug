@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import cookieCutter from 'cookie-cutter';
-import * as Message from "./../../constant/messages";
+import * as Message from "../../../components/constant/messages";
 
-import * as Config from "./../../constant/config";
+import * as Config from "../../../components/constant/config";
 import { SwipeableDrawer } from "@material-ui/core";
 import { route } from "next/dist/server/router";
 import router from "next/router";

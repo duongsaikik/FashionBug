@@ -1,4 +1,4 @@
-import * as types from "../constant/actionType";
+import * as types from "../../components/constant/actionType";
 var initialSate = [];
 const detail = (state = initialSate, action) => {   
    

@@ -2,17 +2,17 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import Link from "next/link";
-import { actUpdateAmountCart, actDeleteInCart } from "./actions";
+import { actUpdateAmountCart, actDeleteInCart } from "../components/actions";
 import ModalCartHeader from "./cart/modal";
 import NumberFormat from "react-number-format";
 import Breadcrumb from "./breadcrumbs";
 
-import { Login } from "./Login";
+import Login  from "./Login";
 import Cookies from 'js-cookie'
 import cookieCutter from "cookie-cutter";
 
 
-import * as Message from "./constant/messages";
+import * as Message from "../components/constant/messages";
 
 
 

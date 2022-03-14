@@ -1,4 +1,4 @@
-import * as types from "../constant/actionType";
+import * as types from "../../components/constant/actionType";
 import React, { useState, useEffect } from "react";
 var data = null;
 /* data=JSON.parse(localStorage.getItem('CART')); */

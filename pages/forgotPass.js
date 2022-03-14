@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 import { useRouter } from "next/router";
-import { Register } from "./Register";
-import { VerifyCode } from "./verifyCode";
-import { UpdatePassword } from "./updatePassword";
+import  Register  from "./Register";
+import  VerifyCode  from "./verifyCode";
+import  UpdatePassword  from "./updatePassword";
 
-export const SetPassword = ({ show, setShow, getName }) => {
+const SetPassword = ({ show, setShow, getName }) => {
   const router = useRouter();
 
   const hide = () => {
@@ -182,3 +182,4 @@ export const SetPassword = ({ show, setShow, getName }) => {
     </>
   );
 };
+export default SetPassword;

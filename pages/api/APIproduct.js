@@ -1,4 +1,4 @@
-import * as Config from "../constant/config";
+import * as Config from "../../components/constant/config";
 
 
 

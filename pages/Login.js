@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 import { useRouter } from "next/router";
-import { Register } from "./Register";
-import { SetPassword } from "./forgotPass";
+import  Register  from "./Register";
+import  SetPassword  from "./forgotPass";
 import cookies from 'js-cookie'
-export const Login = ({ show, setShow, getName }) => {
+ const Login = ({ show, setShow, getName }) => {
   const router = useRouter();
 
   const hide = () => {
@@ -135,7 +135,7 @@ export const Login = ({ show, setShow, getName }) => {
                       </div>
                     </div>
                     <div className="btn_login">
-                      {/*   <Link href="/" onClick={handleSubmit}><a>Đăng nhập</a></Link> */}
+                   
                       <button onClick={handleSubmit}>Đăng nhập</button>
                     </div>
                     <div className="bottom_modal">
@@ -168,3 +168,4 @@ export const Login = ({ show, setShow, getName }) => {
     </>
   );
 };
+export default Login;

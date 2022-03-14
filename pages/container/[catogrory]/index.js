@@ -6,13 +6,13 @@ import Product from "../../products/product";
 import Options from "../../products/options";
 import Pagination from "../../products/pagination";
 import axios from "axios";
-import * as Config from "../../constant/config";
+import * as Config from "../../../components/constant/config";
 import {
   actAddtoCart,
   actFetchProduct,
   actFetchColor,
   actFetchSizer,
-} from "../../actions";
+} from "../../../components/actions";
 
 const ProductByGt = (props) => {
   const router = useRouter();

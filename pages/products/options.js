@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 import { Slider } from '@material-ui/core';
 import NumberFormat from 'react-number-format';
 import axios from "axios";
-import { actFetchProduct } from "../actions";
-import * as Config from "../constant/config";
+import { actFetchProduct } from "../../components/actions";
+import * as Config from "../../components/constant/config";
 const Option = (props) => {
   const router = useRouter();
   const { AmountColor } = props;

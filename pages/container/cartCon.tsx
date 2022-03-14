@@ -4,9 +4,9 @@ import Cart from "../cart";
 import { connect } from 'react-redux';
 import Total from '../cart/total';
 import CartItem from "../cart/cartitem";
-import * as Message from "../constant/messages";
+import * as Message from "../../components/constant/messages";
 import ProductCart from '../cart/productcart';
-import { actDeleteInCart, actUpdateAmountCart,actDeleteAllCart  } from '../actions';
+import { actDeleteInCart, actUpdateAmountCart,actDeleteAllCart  } from '../../components/actions';
 
 const CartContainer = (props) => { //props contain cart and cart contain product, quantity, and 1 action to delete cart of each other 
     const {cart} = props;

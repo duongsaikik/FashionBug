@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { useRouter } from "next/dist/client/router";
 import Detail from "../../products/detail/detail";
 import axios from "axios";
-import * as Config from "../../constant/config";
-import {actFetchDetailProduct,actAddDetailToCart } from '../../actions';
+import * as Config from "../../../components/constant/config";
+import {actFetchDetailProduct,actAddDetailToCart } from '../../../components/actions';
 
 const DetailCon = (props) => {
     const router = useRouter();

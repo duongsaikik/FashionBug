@@ -38,7 +38,7 @@ const Modal = ({ show, onClose, children, title }) => {
             x
           </a>
         </StyledModalHeader>
-        {title && <StyledModalTitle>{title}</StyledModalTitle>}
+        {title &&{title}}
         <StyledModalBody>
           <h2>login</h2>
           <div className="form-group mb-2">

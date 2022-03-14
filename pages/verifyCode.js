@@ -4,10 +4,10 @@ import Link from "next/link";
 import axios from "axios";
 import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
-import { Register } from "./Register";
+import  Register  from "./Register";
 
 
-export const VerifyCode = ({ show, setShow, code, setSussessState}) => {
+const VerifyCode = ({ show, setShow, code, setSussessState}) => {
   const router = useRouter();
 
   const hide = () => {
@@ -109,3 +109,4 @@ export const VerifyCode = ({ show, setShow, code, setSussessState}) => {
     </>
   );
 };
+export default VerifyCode;

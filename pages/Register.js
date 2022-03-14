@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from "react";
 
 
-import { VerifyCode } from "./verifyCode";
+import VerifyCode  from "./verifyCode";
 
 
-export const Register = ({ show, setShow, reshow }) => {
+const Register = ({ show, setShow, reshow }) => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -204,3 +204,4 @@ export const Register = ({ show, setShow, reshow }) => {
     ) : null}
   </>
 };
+export default Register;

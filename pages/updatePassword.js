@@ -5,7 +5,7 @@ import axios from "axios";
 import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
 
-export const UpdatePassword = ({ show, setShow, getName, id }) => {
+const UpdatePassword = ({ show, setShow, getName, id }) => {
   const router = useRouter();
 
   const hide = () => {
@@ -146,3 +146,4 @@ export const UpdatePassword = ({ show, setShow, getName, id }) => {
     </>
   );
 };
+export default UpdatePassword;
