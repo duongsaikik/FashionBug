@@ -34,5 +34,4 @@ jobs:
       with:
         ITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         BRANCH: gh-page
-        FOLDER: out
-        CLEAN: true
+        FOLDER: build
