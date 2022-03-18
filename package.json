@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "set port=4220 && next dev",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "export": "next export",
-    "lint": "next lint"
+    "start": "NODE_ENV=production node server.js",
+    "export": "next export"
+    
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^29.2.0",
