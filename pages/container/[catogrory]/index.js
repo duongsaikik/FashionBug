@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import Product from "../../products/product";
 import Options from "../../products/options";
-import Pagination from "../../products/pagination";
+
 import axios from "axios";
 import * as Config from "../../../components/constant/config";
 import {
@@ -84,11 +84,16 @@ const ProductByGt = (props) => {
       result = "Không có sản phẩm nào";
     }
     if (product.length > 0) {
-      result = product.map((product, index) => {
+      result = product.map((item, index) => {     
         return (
           <Productcontent
             key={index}
-            product={product}
+            id={item._id}
+            image={item.Image}
+            name={item.Name}
+            color={item.colors}            
+            discount={item.Discount}
+            price={item.Price}     
             onAddToCart={onAddToCart}
           />
         );

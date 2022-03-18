@@ -9,7 +9,7 @@ import {
   faUser,
   faClipboard,
   faTshirt,
-  faFileInvoice
+  faFileInvoice,
 } from "@fortawesome/free-solid-svg-icons";
 import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";

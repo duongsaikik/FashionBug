@@ -37,7 +37,18 @@ const CartContainer = (props) => { //props contain cart and cart contain product
         const {actUpdateAmountCart} = props;
             if(carts.length > 0){
                 result = carts.map((item,index) =>{
-                    return <CartItem key={index} item={item} actDeleteInCart={actDeleteInCart} actUpdateAmountCart={actUpdateAmountCart}/>                 
+                    return <CartItem 
+                    key={index} 
+                    
+                    id={item.product.id}
+                    image={item.product.image}
+                    name={item.product.name}
+                    color={item.product.color}
+                    size={item.product.size}
+                    price={item.product.price}
+                    quantity={item.quantity}
+                    actDeleteInCart={actDeleteInCart} 
+                    actUpdateAmountCart={actUpdateAmountCart}/>                 
                 })
             }
         return result;

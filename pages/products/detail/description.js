@@ -7,9 +7,9 @@ import * as Config from "../../../components/constant/config";
 import { SwipeableDrawer } from "@material-ui/core";
 import { route } from "next/dist/server/router";
 import router from "next/router";
-const Description = (props) => {
+const Description = ({comments,id}) => {
     const router = useRouter();
-    const { detail } = props;
+ 
     const editorRef = useRef()
     const [commentAll, setCommentAll] = useState([]);
     const [user, setUser] = useState(null);
@@ -25,8 +25,8 @@ const Description = (props) => {
         
     }, []);
     useEffect(() =>{
-        setCommentAll(detail.Comments)
-    },[detail])
+        setCommentAll(comments)
+    },[comments])
     useEffect(() => {
         const Acc = cookieCutter.get("Acc")
         if (Acc) {
@@ -43,7 +43,7 @@ const Description = (props) => {
     const [comment, setComment] = useState('');
     var today = new Date(), datee = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear() + " " + today.getHours()+ ':'+today.getMinutes();
         
-    var ShowComment = detail.Comments ? detail.Comments.map((item, index) => {
+    var ShowComment = comments ? comments.map((item, index) => {
          var content =  item.text;
         return (
             <li key={index}>
@@ -61,7 +61,7 @@ const Description = (props) => {
         const response = await fetch(Config.API_URL + `/${id}` + '/comments', {
             method: 'POST',
             body: JSON.stringify({
-                commentId: detail.Comments.length > 0 ? Number(detail.Comments[detail.Comments.length - 1].commentId) + 1 : 1,
+                commentId: comments.length > 0 ? Number(comments[comments.length - 1].commentId) + 1 : 1,
                 date: datee,
                 text: comment,
                 userId: user
@@ -82,7 +82,7 @@ const Description = (props) => {
                 <div className="product-detail-content">
                     <div className="describe-para-body">
                         <div className="comment-detail">
-                            <h3>Bình luận {detail.Comments ? '('+detail.Comments.length+')' : ''}</h3>
+                            <h3>Bình luận {comments ? '('+comments.length+')' : ''}</h3>
                             <div className={user !== null ? "wr-comment" : "wr-comment comment_hide"}>
                                 {user ? '' :  <span className="warning_cm">Cần đăng nhập để sử dụng chức năng này</span>}
                                
@@ -110,7 +110,7 @@ const Description = (props) => {
                                 /> : <p>Carregando...</p>
                                 }
                                 <div className="btn_cm_body">
-                                     <button type="submit" className="wr-comment-btn" onClick={() => { handlePostCM(detail._id) }}  >Đăng bình luận</button>
+                                     <button type="submit" className="wr-comment-btn" onClick={() => { handlePostCM(id) }}  >Đăng bình luận</button>
                                 </div>
                            
                             </div>

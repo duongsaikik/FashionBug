@@ -16,7 +16,7 @@ import { createStore, compose } from "redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Lazyload from '../components/lazyLoading';
 import { useEffect } from "react";
-import appReducers from "./reducers";
+import appReducers from "../components/reducers";
 import Headerr from "./header";
 import Head from 'next/dist/shared/lib/head';
 import { Provider } from "react-redux";
@@ -25,8 +25,6 @@ import { useRouter } from 'next/router';
 import cookieCutter from "cookie-cutter";
 import Sidebar from "../components/SideBar";
 import Footer from "./Footer";
-import Messenger from "../components/messenger";
-import cookies from "next-cookies";
 import Router from "next/router";
 import NProgress from "nprogress"
 

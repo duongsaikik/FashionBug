@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import { useRouter } from "next/router";
 import  Register  from "./Register";
 import  SetPassword  from "./forgotPass";
@@ -109,11 +108,11 @@ import cookies from 'js-cookie'
                     )}
                     <div className="first_name">
                       <i className="bx bx-user-circle first_icon_content"></i>
-                      <div className="first_content_name_detail">
+                      <div className="first_content_name_detail" >
                         <span className="tittle">Email</span>
                         <input
                           type="text"
-                          className="name_input"
+                          className="name_input email_field"
                           placeholder=" ..."
                           id="thu"
                          
@@ -127,15 +126,15 @@ import cookies from 'js-cookie'
                         <span className="tittle">Mật khẩu </span>
                         <input
                           type="password"
-                          className="name_input"
+                          className="name_input password_field"
                           placeholder=" ..."
-                         
+                    
                           onChange={(e) => setPassword(e.target.value)}
                         />
                       </div>
                     </div>
                     <div className="btn_login">
-                   
+                      {/*   <Link href="/" onClick={handleSubmit}><a>Đăng nhập</a></Link> */}
                       <button onClick={handleSubmit}>Đăng nhập</button>
                     </div>
                     <div className="bottom_modal">

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import NumberFormat from "react-number-format";
 import cookieCutter from "cookie-cutter";
 import * as Config from "../../components/constant/config";
-import { VerifyCode } from "../verifyCode";
+import  VerifyCode  from "../verifyCode";
 
 const Total = (props) => {
   const router = useRouter();

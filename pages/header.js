@@ -7,7 +7,7 @@ import ModalCartHeader from "./cart/modal";
 import NumberFormat from "react-number-format";
 import Breadcrumb from "./breadcrumbs";
 
-import Login  from "./Login";
+import  Login from "./Login";
 import Cookies from 'js-cookie'
 import cookieCutter from "cookie-cutter";
 
@@ -80,7 +80,14 @@ const Headerr = (props) => {
         return (
           <ModalCartHeader
             key={index}
-            cart={item}
+           
+            id={item.product.id}
+            image={item.product.image}
+            name={item.product.name}
+            color={item.product.color}
+            size={item.product.size}
+            price={item.product.price}
+            quantity={item.quantity}
             actUpdateAmountCart={actUpdateAmountCart}
             actDeleteInCart={actDeleteInCart}
           />

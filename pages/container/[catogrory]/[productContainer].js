@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Product from '../../products/product';
 import Options from '../../products/options';
-import Pagination from '../../products/pagination';
 import axios from "axios";
 import * as Config from "../../../components/constant/config";
 import { actAddtoCart, actFetchProduct, actFetchColor, actFetchSizer } from '../../../components/actions';
@@ -19,7 +18,7 @@ const ProductContainer = (props) => {
     const [totalPage, setTotalPage] = useState(0)
     const [currentPage, setCurrentPage] = useState(0);
     const postPerPage = 8;
-
+    console.log(1)
     //props contain attribute of product and  1 action to add to cart of each other  
     useEffect(() => {
         if (router.asPath !== router.route) {
@@ -70,8 +69,17 @@ const ProductContainer = (props) => {
         var result = 'Không có sản phẩm nào';
         const { onAddToCart } = props;
         if (product.length > 0) {
-            result = product.map((product, index) => {
-                return <Productcontent key={index} product={product} onAddToCart={onAddToCart} />
+            result = product.map((item, index) => {
+               
+                return <Productcontent 
+                key={index}                 
+                id={item._id}
+                image={item.Image}
+                name={item.Name}
+                color={item.colors}            
+                discount={item.Discount}
+                price={item.Price}           
+                onAddToCart={onAddToCart} />
             })
         }
         return result;

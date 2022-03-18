@@ -1,11 +1,7 @@
-import styled from "styled-components";
-import Frame from "../components/Frame";
-import axios from "axios";
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/dist/client/router";
 import cookies from 'next-cookies'
-import cookieCutter from 'cookie-cutter';
-import { useRef } from 'react';
 import Info from "./profile/info";
 import ChangePass from "./profile/changePass";
 import Bill from "./profile";

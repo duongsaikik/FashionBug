@@ -22,7 +22,7 @@ const Modal = ({ show, onClose, children, title }) => {
             x
           </a>
         </StyledModalHeader>
-        {title && {title}}
+        {title &&{title}}
         <StyledModalBody>
           <h2>Ban</h2>
         </StyledModalBody>

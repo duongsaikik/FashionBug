@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import Headerr from "../header";
+
 const ModalCart = (props) =>{
     const {cart} = props;
     var ShowModal = cart.map((item, index) => (

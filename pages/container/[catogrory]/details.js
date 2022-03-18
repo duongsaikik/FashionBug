@@ -39,7 +39,7 @@ const DetailCon = (props) => {
             }
         }     
         const fetchh = async () => {
-            const data = await axios.get(Config.API_URL_RELATED, request ? request : {});
+            const {data} = await axios.get(Config.API_URL_RELATED, request ? request : {});
             setProduct(data)                  
         };
         fetchh();
@@ -49,7 +49,22 @@ const DetailCon = (props) => {
     const {actAddDetailToCart} = props;
     return (
         <>
-            <Detail relate={product} detail={detail} actAddDetailToCart={actAddDetailToCart} chooseColor={color}/> 
+            <Detail 
+            relate={product} 
+            
+            id={detail._id}
+            image={detail.Image}
+            name={detail.Name}
+            color={detail.colors}
+            size={detail.size}            
+            discount={detail.Discount}
+            price={detail.Price}    
+            description={detail.Description}
+            enteringQuantity={detail.enteringQuantity} 
+            soldQuantity={detail.soldQuantity}
+            comments={detail.Comments}
+            actAddDetailToCart={actAddDetailToCart} 
+            chooseColor={color}/> 
         </>
     )
 }

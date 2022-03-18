@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import * as types from "../../components/constant/actionType";
+import * as types from "../constant/actionType";
  var initialSate = [];
 
 const Color = (state = initialSate, action) => {   

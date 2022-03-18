@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from "react";
 
 import NumberFormat from 'react-number-format';
-const CartItem = (props) => {
-    const { item } = props;
-    const {quantity} = props.item;
+const CartItem = ({id,image,name, color, size, price, quantity,actUpdateAmountCart,actDeleteInCart}) => {
+  
     const [amount, setAmount] = useState(quantity);
  
  
  
     useEffect(() => {
         if (amount !== '') {
-             props.actUpdateAmountCart(item.product, Number(amount)); 
+             actUpdateAmountCart({
+              product:{
+                id,image,name, color, size, price
+              },
+              quantity
+             }, Number(amount)); 
         }
     },[amount]);
     //props contain cart and cart contain product, quantity, and 1 action to delete cart of each other 
     //get item from props and include product and quantity
     var onDeleteCart = (id,color,size) => {
-        props.actDeleteInCart(id,color,size); //push id to store reducer to get dispatch and delete cart
+         actDeleteInCart(id,color,size); //push id to store reducer to get dispatch and delete cart
     }
     const ChangeAmount = (event) => {
        setAmount(quantity);
-         props.actUpdateAmountCart(id); 
+         actUpdateAmountCart(id); 
     }
   
     return (
@@ -32,19 +36,19 @@ const CartItem = (props) => {
                     </div> */}
                     <div className="img-name">
                         <div className="img-product">
-                             <img src={item.product.image} alt={item.product.image} /> 
+                             <img src={image} alt={image} /> 
                             
                         </div>
                     </div>
                 </div>
                 <div className="importer-detail">
                     <div className="produt-name">
-                        <p>{item.product.name} (Màu: {item.product.color}, Size: {item.product.size})
+                        <p>{name} (Màu: {color}, Size: {size})
                         </p>
                        
                         <div className="product-id">
                             <span>Mã sản phẩm : </span>
-                            <span>{item.product.id}</span>
+                            <span>{id}</span>
                         </div>
                     </div>
                     <div className="amount-price">
@@ -71,11 +75,11 @@ const CartItem = (props) => {
                             </div>
                         </div>
                         <div className="cart-product-price">
-                            <span id="price"><NumberFormat value={item.product.price} displayType={'text'} thousandSeparator={true} suffix={'đ'} /></span>
+                            <span id="price"><NumberFormat value={price} displayType={'text'} thousandSeparator={true} suffix={'đ'} /></span>
                         </div>
                     </div>
                     <div className="delete-product">
-                        <button className="btn-delete" onClick={() => { onDeleteCart(item.product.id,item.product.color,item.product.size) }}><i className="fas fa-trash-alt"></i></button>
+                        <button className="btn-delete" onClick={() => { onDeleteCart(id,color,size) }}><i className="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
 

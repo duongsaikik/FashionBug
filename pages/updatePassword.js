@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Link from "next/link";
-import axios from "axios";
-import cookieCutter from "cookie-cutter";
-import { useRouter } from "next/router";
 
+import { useRouter } from "next/router";
 const UpdatePassword = ({ show, setShow, getName, id }) => {
   const router = useRouter();
 
@@ -146,4 +142,5 @@ const UpdatePassword = ({ show, setShow, getName, id }) => {
     </>
   );
 };
+
 export default UpdatePassword;

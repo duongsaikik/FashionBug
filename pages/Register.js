@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 
 
-import VerifyCode  from "./verifyCode";
+import  VerifyCode  from "./verifyCode";
 
 
 const Register = ({ show, setShow, reshow }) => {

@@ -5,18 +5,30 @@ import Slider from "react-slick";
 import Description from "./description";
 import Extend from "./extendtion";
 
-const Detail = (props) => {
+const Detail = ({
+  id,
+  image,
+  name,
+  color,
+  discount,
+  size,
+  price,
+  description,
+  enteringQuantity,
+  soldQuantity,
+  comments,
+  actAddDetailToCart,
+  chooseColor,
+  relate }) => {
   const router = useRouter();
-  const { detail } = props;
-  const { relate } = props;
-  const { chooseColor } = props;
 
+ 
   const [sizee, setSize] = useState(null);
-  const [color, setColor] = useState(chooseColor);
-  const [image, setImage] = useState([
-    detail.Image,
-    detail.Image,
-   
+  const [colors, setColor] = useState(chooseColor);
+  const [images, setImage] = useState([
+    image,
+    image,
+
   ]);
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
@@ -25,32 +37,32 @@ const Detail = (props) => {
     id: "",
     name: "",
     price: 0,
-    color: color,
+    color: colors,
     size: sizee,
     image: "",
   });
   useEffect(() => {
-    setColor(detail.colors);
-    setSize(detail.size);
-    setImage([detail.Image,
-    detail.Image,
-    detail.Image,
-    detail.Image,])
-  }, [detail]);
+    setColor(color);
+    setSize(size);
+    setImage([image,
+      image,
+      image,
+      image,])
+  }, [id]);
   useEffect(() => {
     setColor(chooseColor);
   }, [chooseColor]);
 
   useEffect(() => {
     setPorduct({
-      id: detail._id,
-      name: detail.Name,
-      price: detail.Price,
-      color: color,
+      id: id,
+      name: name,
+      price: price,
+      color: colors,
       size: sizee,
-      image: detail.Image,
+      image: image,
     });
-  }, [color, sizee]);
+  }, [colors, sizee]);
 
   const settings = {
     className: "img_center",
@@ -65,6 +77,31 @@ const Detail = (props) => {
     dots: false,
     centerMode: true,
     focusOnSelect: true,
+  };
+  const settingsExtra = {
+    lazyLoad: "ondemand",
+    slidesToShow:relate ? relate.length >= 3 ? 3 : relate.length : '',
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: true,
+          centerMode: true,
+          centerPadding: "40px",
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: true,
+          centerMode: true,
+          centerPadding: "40px",
+          slidesToShow: 2,
+        },
+      },
+    ],
   };
 
   const ShowColor = (color) => {
@@ -81,12 +118,12 @@ const Detail = (props) => {
 
   const Calcula = (event) => {
     if (event.target.value === "+") {
-      if (amount < 100000 && (detail.enteringQuantity - detail.soldQuantity)> amount){
+      if (amount < 100000 && (enteringQuantity - soldQuantity) > amount) {
         setAmount((pre) => {
           return pre + 1;
         });
-      }else{
-        swal("Thông báo","Số lượng tồn kho không thể đáo ứng hơn","error")
+      } else {
+        swal("Thông báo", "Số lượng tồn kho không thể đáo ứng hơn", "error")
       }
     } else {
       if (amount > 1)
@@ -99,11 +136,11 @@ const Detail = (props) => {
   const addcart = (e) => {
     e.preventDefault();
     swal("Thông Báo!", "Thêm thành công", "success");
-    props.actAddDetailToCart(product, amount);
+    actAddDetailToCart(product, amount);
   };
   const Purchase = (e) => {
     e.preventDefault();
-    props.actAddDetailToCart(product, amount);
+    actAddDetailToCart(product, amount);
     router.push("/container/cartCon");
   };
   const handlecm = () => {
@@ -111,38 +148,9 @@ const Detail = (props) => {
     document.getElementById("cm_stack").classList.toggle("activecm");
   };
 
-  const handleChoose = (index, sizee) => {
-    setSize(sizee);
-    const size = document.querySelectorAll(".ShowSize");
-    size.forEach((l) => l.classList.remove("active"));
-    size[index].classList.toggle("active");
-  };
 
-  const handleChooseColor = (index, colorr) => {
-    setColor(colorr);
-    const color = document.querySelectorAll(".showColor_body");
-    color.forEach((l) => l.classList.remove("activeColor"));
-    color[index].classList.toggle("activeColor");
-  };
-  /* var showSize = detail.size ? detail.size.map((item, index) => {
-        return <label key={index}
-            className="ShowSize active"
-        >
-            {item}
-        </label>
-    }) : ''; */
-  /*   var showColor = detail.colors ? detail.colors.map((color, index) => {
-          console.log()
-          return <label key={index} className={chooseColor === color ? "showColor_body color_item activeColor" : "showColor_body color_item activeColor"}>
-              <span style={ShowColor(color)}
-                  className="showColor"
-                  id="Color"
-                  onClick={() => { handleChooseColor(index, color) }}
-              ></span>
-          </label>
-      }) : ''; */
 
-  var ShowImage = image.map((item, index) => {
+  var ShowImage = images.map((item, index) => {
 
     return (
       <div key={index}>
@@ -150,11 +158,18 @@ const Detail = (props) => {
       </div>
     );
   });
-  var related = relate ? (
-    <>
-      <Extend relate={relate.data} />
-    </>
-  ) : (
+  var related = relate ? relate.map((item, index) => {
+    return <Extend
+      key={index}
+      id={item._id}
+      image={item.Image}
+      name={item.Name}
+      color={item.colors}
+      discount={item.Discount}
+      price={item.Price}
+    
+    />
+  }) : (
     ""
   );
   return (
@@ -173,17 +188,17 @@ const Detail = (props) => {
             </div>
           </div>
           <div className="product-dt-info">
-            <h4>{detail.Name}</h4>
+            <h4>{name}</h4>
             <div className="product-dt-id">
               <span className="product-dt-tittle-name">
-                Mã sản phẩm : {detail._id}
+                Mã sản phẩm : {id}
               </span>
             </div>
             <div className="product-dt-price">
               <span className="main_price">
                 {" "}
                 <NumberFormat
-                  value={detail.Price}
+                  value={price}
                   displayType={"text"}
                   thousandSeparator={true}
                   suffix={"đ"}
@@ -192,7 +207,7 @@ const Detail = (props) => {
               <span className="discount_detail">
                 {" "}
                 <NumberFormat
-                  value={detail.Discount !== 0 ? detail.Discount : ""}
+                  value={discount !== 0 ? discount : ""}
                   displayType={"text"}
                   thousandSeparator={true}
                   suffix={"đ"}
@@ -204,13 +219,13 @@ const Detail = (props) => {
               <div>
                 <label
                   className={
-                    chooseColor === color
+                    chooseColor === colors
                       ? "showColor_body color_item activeColor"
                       : "showColor_body color_item activeColor"
                   }
                 >
                   <span
-                    style={ShowColor(detail.colors)}
+                    style={ShowColor(colors)}
                     className="showColor"
                     id="Color"
                   ></span>
@@ -220,12 +235,12 @@ const Detail = (props) => {
             <div className="product-dt-size">
               <span className="product-dt-tittle-name">Kích thước :</span>
               <div>
-                <label className="ShowSize active">{detail.size}</label>
+                <label className="ShowSize active">{size}</label>
               </div>
             </div>
             <div className="product-condition">
               <span className="product-dt-tittle-name">
-                Tình trạng : {(detail.enteringQuantity - detail.soldQuantity) > 0 ? 'Còn hàng' : 'Hết hàng'}
+                Tình trạng : {(enteringQuantity - soldQuantity) > 0 ? 'Còn hàng' : 'Hết hàng'}
               </span>
             </div>
             <div className="amount-n-body">
@@ -264,25 +279,25 @@ const Detail = (props) => {
                 </div>
               </div>
             </div>
-            
-              <div className={(detail.enteringQuantity - detail.soldQuantity) > 0 ?'btn-action' : 'btn-action active_hide_btn'} >
-                <button
-                  type="submit"
-                  className="btn-action-purchase"
-                  onClick={Purchase}
-                >
-                  MUA NGAY
-                </button>
-                <button
-                  type="submit"
-                  className="btn-action-addcart"
-                  onClick={addcart}
-                >
-                  <i className="fas fa-cart-plus icon-cart"></i>
-                  THÊM VÀO GIỎ HÀNG
-                </button>
-              </div>
-            
+
+            <div className={(enteringQuantity - soldQuantity) > 0 ? 'btn-action' : 'btn-action active_hide_btn'} >
+              <button
+                type="submit"
+                className="btn-action-purchase"
+                onClick={Purchase}
+              >
+                MUA NGAY
+              </button>
+              <button
+                type="submit"
+                className="btn-action-addcart"
+                onClick={addcart}
+              >
+                <i className="fas fa-cart-plus icon-cart"></i>
+                THÊM VÀO GIỎ HÀNG
+              </button>
+            </div>
+
 
             <div className="product_cm_detail">
               <div className="cm-tittle" onClick={handlecm}>
@@ -290,7 +305,7 @@ const Detail = (props) => {
                 <span id="arrows">^</span>
               </div>
               <div className="cm_stack" id="cm_stack">
-                <p dangerouslySetInnerHTML={{ __html: detail.Description }}></p>
+                <p dangerouslySetInnerHTML={{ __html: description }}></p>
               </div>
             </div>
             <div className="contact">
@@ -303,8 +318,20 @@ const Detail = (props) => {
             </div>
           </div>
         </div>
-        <Description detail={detail} />
-        {related}
+        <Description comments={comments} id={id} />
+        <div className="extension-product">
+          <div className="extension-product-body">
+            <div>
+              <h4>SẢN PHẨM LIÊN QUAN</h4>
+
+              <div className=""></div>
+              <Slider {...settingsExtra}>
+                {related}
+              </Slider>
+            </div>
+          </div>
+        </div>
+
       </div>
     </>
   );

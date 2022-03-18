@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Link from "next/link";
-import axios from "axios";
-import cookieCutter from "cookie-cutter";
+
 import { useRouter } from "next/router";
 import  Register  from "./Register";
-
 
 const VerifyCode = ({ show, setShow, code, setSussessState}) => {
   const router = useRouter();

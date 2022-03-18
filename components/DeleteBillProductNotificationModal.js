@@ -3,8 +3,9 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { useRouter } from "next/router";
-
-
+import Link from "next/link";
+import { faCheck, faHome } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Button = styled.button`
   border-radius: 8px;

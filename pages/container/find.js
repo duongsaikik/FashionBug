@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Product from '../products/product';
 import Options from '../products/options';
-import Pagination from '../products/pagination';
+
 import axios from "axios";
 import * as Config from "../../components/constant/config";
 import { actAddtoCart, actFetchProduct, actFetchColor, actFetchSizer } from '../../components/actions';
