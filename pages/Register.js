@@ -85,7 +85,7 @@ const Register = ({ show, setShow, reshow }) => {
       setvalidatemessage("Mật khẩu không trùng nhau");
     }
     else {
-      const response = await fetch('http://localhost:5035/users/register', {
+      const response = await fetch('https://shopbug.herokuapp.com/users/register', {
         method: 'POST',
         body: JSON.stringify({
           name, email, password, role
@@ -101,7 +101,7 @@ const Register = ({ show, setShow, reshow }) => {
         setvalidatemessage("Tên đã tồn tại");
       } else {
       var verifycode = randomNumber(6);
-        const response = await fetch("http://localhost:5035/users", {
+        const response = await fetch("https://shopbug.herokuapp.com/users", {
           method: "POST",
           body: JSON.stringify({
             email: email,

@@ -44,7 +44,7 @@ const Setting = () => {
         <Content>
           <UserSection>
             <UserImg
-              src="http://localhost:5035/upload/images/default.png"
+              src="https://shopbug.herokuapp.com/upload/images/default.png"
               width="200px"
               height="200px"
             ></UserImg>

@@ -25,7 +25,7 @@ import cookies from 'js-cookie'
   const handleSubmit = async () => {
    
     if (email && password) {
-      const response = await fetch("http://localhost:5035/users/login", {
+      const response = await fetch("https://shopbug.herokuapp.com/users/login", {
         method: "POST",
         body: JSON.stringify({
           email: email,

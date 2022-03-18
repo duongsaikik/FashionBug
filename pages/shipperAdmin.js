@@ -21,10 +21,10 @@ function filtByShipperID(data,id){
 }
 
 Home.getInitialProps = async (ctx) => {
-  const res = await fetch("http://localhost:5035/bills/");
+  const res = await fetch("https://shopbug.herokuapp.com/bills/");
   const json = await res.json();
   const {Acc} =cookies(ctx);
-  const res31 = await fetch("http://localhost:5035/users/"+Acc);
+  const res31 = await fetch("https://shopbug.herokuapp.com/users/"+Acc);
   var json31 = await res31.json();
   return { data: filtByShipperID(json,Acc) };
 };
@@ -74,7 +74,7 @@ export default function Home({ data }) {
     const Acc = cookieCutter.get("Acc");
     if (Acc) {
       const fetchUser = async () => {
-        const res31 = await fetch("http://localhost:5035/users/" + Acc);
+        const res31 = await fetch("https://shopbug.herokuapp.com/users/" + Acc);
         const data = await res31.json();
         setUser(data && data);
       };
@@ -83,13 +83,13 @@ export default function Home({ data }) {
   }, []);
   const router = useRouter();
   const setBillForShipper = (id, trangthai) => {
-    const updateBillStatus = axios.put("http://localhost:5035/bills/" + id, {
+    const updateBillStatus = axios.put("https://shopbug.herokuapp.com/bills/" + id, {
       Status: trangthai,
     });
 
 
     const updateShipperBillQuantity = axios.put(
-      "http://localhost:5035/users/" + id,
+      "https://shopbug.herokuapp.com/users/" + id,
       {
         currentBillQuantity: user.currentBillQuantity - 1,
       }
@@ -119,7 +119,7 @@ export default function Home({ data }) {
     if (method == "Theo ngày và thuộc tính") {
       axios
         .get(
-          "http://localhost:5035/bills",
+          "https://shopbug.herokuapp.com/bills",
           {
             params: {
               province,
@@ -142,7 +142,7 @@ export default function Home({ data }) {
     } else if (method == "Theo ngày") {
       axios
         .get(
-          "http://localhost:5035/bills",
+          "https://shopbug.herokuapp.com/bills",
           {
             params: {
               startDate,
@@ -163,7 +163,7 @@ export default function Home({ data }) {
     } else {
       axios
         .get(
-          "http://localhost:5035/bills",
+          "https://shopbug.herokuapp.com/bills",
           {
             params: {
               province,

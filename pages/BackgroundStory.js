@@ -42,7 +42,7 @@ const BackgroundStory = () =>(
                 </td>
                 <td  className={styles.rightbackgroundcontent}>
                     <div>
-                        <img src="imgs/head.png" className={styles.imgminhhoa}/>
+                        <img src="imgs/head.png" alt="imgs/head.png" className={styles.imgminhhoa}/>
                     </div>
                 </td>
             </tr>

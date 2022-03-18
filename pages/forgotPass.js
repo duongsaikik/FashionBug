@@ -32,7 +32,7 @@ const SetPassword = ({ show, setShow, getName }) => {
     return re;
   }
   const getUserIdByEmail = async () => {
-    const response = await fetch("http://localhost:5035/users?size=100", {
+    const response = await fetch("https://shopbug.herokuapp.com/users?size=100", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const SetPassword = ({ show, setShow, getName }) => {
   };
   const handleSubmit = async () => {
     if (email) {
-      const response = await fetch("http://localhost:5035/users/login", {
+      const response = await fetch("https://shopbug.herokuapp.com/users/login", {
         method: "POST",
         body: JSON.stringify({
           email: email,
@@ -63,7 +63,7 @@ const SetPassword = ({ show, setShow, getName }) => {
       const data = await response.json();
       if (data.exists != 0) {
         var verifycode = randomNumber(6);
-        const response = await fetch("http://localhost:5035/users", {
+        const response = await fetch("https://shopbug.herokuapp.com/users", {
           method: "POST",
           body: JSON.stringify({
             email: email,

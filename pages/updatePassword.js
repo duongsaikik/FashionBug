@@ -23,7 +23,7 @@ const UpdatePassword = ({ show, setShow, getName, id }) => {
     } else if (fpassword != password) {
       setPassnoity("Mật khẩu không trùng khớp");
     } else {
-      const response = await fetch("http://localhost:5035/users/" + id, {
+      const response = await fetch("https://shopbug.herokuapp.com/users/" + id, {
         method: "PUT",
         body: JSON.stringify({
           password: fpassword,
