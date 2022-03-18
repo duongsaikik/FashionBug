@@ -52,7 +52,7 @@ const MyApp = ({ Component, pageProps}) => {
    
     if (Acc) {
       const fetchUser = async () => {
-        const res31 = await fetch("http://localhost:5035/users/" + Acc);
+        const res31 = await fetch("https://shopbug.herokuapp.com/users/" + Acc);
         const data = await res31.json();
         setUser(data);
       }
