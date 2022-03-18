@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
 export const getStaticPaths = async () => {
-  const res = await fetch("http://localhost:5035/bills");
+  const res = await fetch("https://shopbug.herokuapp.com/bills");
   const data = await res.json();
 
   const paths = data.map((item) => {
@@ -27,7 +27,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const id = context.params.id;
-  const res = await fetch("http://localhost:5035/bills/" + id);
+  const res = await fetch("https://shopbug.herokuapp.com/bills/" + id);
   const data = await res.json();
 
   return {
@@ -74,7 +74,7 @@ const Home = ({ item }) => {
 
   const getRelativeData = () => {
     axios
-      .get("http://localhost:5035/coursesAll")
+      .get("https://shopbug.herokuapp.com/coursesAll")
       .then(function (response) {
         let getAll = response.data;
         console.log(item.Products);

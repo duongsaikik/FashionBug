@@ -18,7 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
 Home.getInitialProps = async (ctx) => {
-  const res = await fetch("http://localhost:5035/coursesAll");
+  const res = await fetch("https://shopbug.herokuapp.com/coursesAll");
   console.log(res);
   const json = await res.json();
 

@@ -14,7 +14,7 @@ import DeleteNotificationModal from "../../components/DeleteNotificationModal";
 import axios from "axios";
 
 Home.getInitialProps = async (ctx) => {
-  const res = await fetch("http://localhost:5035/users?size=10&page=0");
+  const res = await fetch("https://shopbug.herokuapp.com/users?size=10&page=0");
   const json = await res.json();
   return { data: json };
 };

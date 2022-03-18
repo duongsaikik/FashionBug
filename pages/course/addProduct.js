@@ -132,7 +132,7 @@ const Form = () => {
 
             axios
               .post(
-                "http://localhost:5035/courses",
+                "https://shopbug.herokuapp.com/courses",
                 {
                   name,
                   description,

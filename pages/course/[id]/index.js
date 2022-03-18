@@ -25,7 +25,7 @@ const Button = styled.button`
   }
 `;
 export const getStaticPaths = async () => {
-  const res = await fetch("http://localhost:5035/coursesAll");
+  const res = await fetch("https://shopbug.herokuapp.com/coursesAll");
   const data = await res.json();
 
   const paths = data.map((item) => {
@@ -43,7 +43,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const id = context.params.id;
-  const res = await fetch("http://localhost:5035/courses/" + id);
+  const res = await fetch("https://shopbug.herokuapp.com/courses/" + id);
   const data = await res.json();
   return {
     props: {

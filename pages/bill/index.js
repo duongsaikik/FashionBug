@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
 Home.getInitialProps = async (ctx) => {
-  const res = await fetch("http://localhost:5035/bills");
+  const res = await fetch("https://shopbug.herokuapp.com/bills");
   const json = await res.json();
   return { data: json };
 };
@@ -73,7 +73,7 @@ export default function Home({ data }) {
     if (method == "Theo ngày và thuộc tính") {
       axios
         .get(
-          "http://localhost:5035/bills",
+          "https://shopbug.herokuapp.com/bills",
           {
             params: {
               province,
@@ -96,7 +96,7 @@ export default function Home({ data }) {
     } else if (method == "Theo ngày") {
       axios
         .get(
-          "http://localhost:5035/bills",
+          "https://shopbug.herokuapp.com/bills",
           {
             params: {
               startDate,
@@ -117,7 +117,7 @@ export default function Home({ data }) {
     } else {
       axios
         .get(
-          "http://localhost:5035/bills",
+          "https://shopbug.herokuapp.com/bills",
           {
             params: {
               province,

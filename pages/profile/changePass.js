@@ -24,7 +24,7 @@ const ChangePass = ({ data }) => {
 
   const handlePost = async () => {
     if (newPassword === RePassword && newPassword.length >= 6) {
-      const res21 = await fetch("http://localhost:5035/users/checkPassword", {
+      const res21 = await fetch("https://shopbug.herokuapp.com/users/checkPassword", {
         method: "POST",
         body: JSON.stringify({
           email: data.email,

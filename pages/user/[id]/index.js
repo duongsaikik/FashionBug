@@ -25,7 +25,7 @@ const Button = styled.button`
   }
 `;
 export const getStaticPaths = async () => {
-  const res = await fetch("http://localhost:5035/users?size=40&page=0");
+  const res = await fetch("https://shopbug.herokuapp.com/users?size=40&page=0");
   const data = await res.json();
 
   const paths = data.tutorials.map((item) => {

@@ -48,7 +48,7 @@ function Form() {
     if (role === "Shipper") {
       axios
         .post(
-          "http://localhost:5035/users/register",
+          "https://shopbug.herokuapp.com/users/register",
           {
             name,
             email,

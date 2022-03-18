@@ -24,7 +24,7 @@ const Info = ({
   function UpdateCloud() {
     axios
       .put(
-        "http://localhost:5035/users/" + id,
+        "https://shopbug.herokuapp.com/users/" + id,
         { sex: sexx,phoneNumber:phone, address: addresss },
         {
           headers: { "Content-Type": "application/json" },

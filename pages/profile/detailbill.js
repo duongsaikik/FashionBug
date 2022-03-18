@@ -28,7 +28,7 @@ const DetailBill = ({address, billDate, product, province, status, totalPrice,id
     }
     const deleteItem = (id) => {
 
-        axios.put("http://localhost:5035/bills/" + id, {
+        axios.put("https://shopbug.herokuapp.com/" + id, {
             Status: "Đã hủy đơn",
         }).then((res) => {
             swal("Thông Báo!", "Huỷ đơn hàng thành công", "success");

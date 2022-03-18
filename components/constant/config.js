@@ -1,3 +1,3 @@
-export const API_URL = 'http://localhost:5035/courses';
-export const API_URL_RELATED = 'http://localhost:5035/courses/relative';
-export const API_URL_BILL = 'http://localhost:5035/bills';
+export const API_URL = 'https://shopbug.herokuapp.com/courses';
+export const API_URL_RELATED = 'https://shopbug.herokuapp.com/courses/relative';
+export const API_URL_BILL = 'https://shopbug.herokuapp.com/bills';
