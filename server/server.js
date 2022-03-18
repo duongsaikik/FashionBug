@@ -23,7 +23,7 @@ app.use(BillRoutes);
 mongoose.Promise = global.Promise;
 
 // set up port number
-const port = 5035;
+const port = process.env.PORT || 5035;
 // set up mongoose
 mongoose
   .connect(
