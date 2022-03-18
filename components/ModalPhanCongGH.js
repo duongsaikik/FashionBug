@@ -19,7 +19,7 @@ const Modal = ({ show, onClose, children, title, item }) => {
 
   const getShippers = () => {
     axios
-      .get("http://localhost:5035/users/shippers", {
+      .get("https://shopbug.herokuapp.com/users/shippers", {
         params: { area: item.Province },
       })
       .then((res) => {
@@ -42,7 +42,7 @@ const Modal = ({ show, onClose, children, title, item }) => {
   const router = useRouter();
   const setBillForShipper = (shipper) => {
     axios
-      .get("http://localhost:5035/coursesAll")
+      .get("https://shopbug.herokuapp.com/coursesAll")
       .then((res) => {
         let getAll = res.data;
         console.log(item.Products);
@@ -51,7 +51,7 @@ const Modal = ({ show, onClose, children, title, item }) => {
             if (item.Products[j].product.id === getAll[i]._id) {
               getAll[i].soldQuantity += item.Products[j].quantity;
               axios
-                .put("http://localhost:5035/courses/" + getAll[i]._id, {
+                .put("https://shopbug.herokuapp.com/courses/" + getAll[i]._id, {
                   soldQuantity: getAll[i].soldQuantity,
                 })
                 .then((res) => {
@@ -68,7 +68,7 @@ const Modal = ({ show, onClose, children, title, item }) => {
         console.log(e);
       });
     axios
-      .put("http://localhost:5035/users/" + shipper._id, {
+      .put("https://shopbug.herokuapp.com/users/" + shipper._id, {
         currentBillQuantity: shipper.currentBillQuantity + 1,
       })
       .then((res) => {
@@ -78,7 +78,7 @@ const Modal = ({ show, onClose, children, title, item }) => {
         console.log(e);
       });
     axios
-      .put("http://localhost:5035/bills/" + item._id, {
+      .put("https://shopbug.herokuapp.com/bills/" + item._id, {
         idShipper: shipper._id,
         shipperName: shipper.name,
         Status: "Đang giao hàng",
@@ -91,7 +91,7 @@ const Modal = ({ show, onClose, children, title, item }) => {
       });
 
         axios
-          .post("http://localhost:5035/users/"  , {
+          .post("https://shopbug.herokuapp.com/users/"  , {
             email: item.userEmail,
             subject: "Thông báo đơn hàng đang được giao",
             htmlContent: `

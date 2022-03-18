@@ -45,7 +45,7 @@ const DeleteNotificationModal = ({
   };
   const router = useRouter();
   const deleteItem = () => {
-    axios.put("http://localhost:5035/bills/" + id + "/item/" + cmtId);
+    axios.put("https://shopbug.herokuapp.com/bills/" + id + "/item/" + cmtId);
   };
   const modalContent = show ? (
     <StyledModalOverlay>

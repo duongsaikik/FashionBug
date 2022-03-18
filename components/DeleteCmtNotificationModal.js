@@ -46,7 +46,7 @@ const DeleteNotificationModal = ({
   const router = useRouter();
   const deleteItem = () => {
     axios.put(
-      "http://localhost:5035/" + prefix + "s/" + id + "/delComments/" + cmtId
+      "https://shopbug.herokuapp.com/" + prefix + "s/" + id + "/delComments/" + cmtId
     );
   };
   const modalContent = show ? (

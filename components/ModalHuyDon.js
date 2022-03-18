@@ -40,17 +40,17 @@ const Modal = ({ show, onClose, children, title, item }) => {
   const cancelAndSend = () => {
     if(item.userId !== "NoLogin"){
       axios
-        .put("http://localhost:5035/bills/" + item._id, {
+        .put("https://shopbug.herokuapp.com/bills/" + item._id, {
           Status: "Đã hủy đơn",
         })
         .then((res) => {
           console.log(res.data);
           axios
-            .get("http://localhost:5035/users/"+item.userId)
+            .get("https://shopbug.herokuapp.com/users/"+item.userId)
             .then((res) => {
               console.log(res);
               axios
-                .post("http://localhost:5035/users",{
+                .post("https://shopbug.herokuapp.com/users",{
                   email: res.data.email,
                   subject: "Thông báo hủy đơn hàng",
                   htmlContent: cancelBillMessage(item)
@@ -71,12 +71,12 @@ const Modal = ({ show, onClose, children, title, item }) => {
         });
     }else{
     axios
-      .put("http://localhost:5035/bills/" + item._id, {
+      .put("https://shopbug.herokuapp.com/bills/" + item._id, {
         Status: "Đã hủy đơn",
       })
       .then((res) => {      
             axios
-              .post("http://localhost:5035/users",{
+              .post("https://shopbug.herokuapp.com/users",{
                 email: item.userEmail,
                 subject: "Thông báo hủy đơn hàng",
                 htmlContent: cancelBillMessage(item)

@@ -34,7 +34,7 @@ export const Login = ({ show, setShow, setShowRegister, setLoginstate }) => {
     console.log(email);
     axios
       .post(
-        "http://localhost:5035/users/login",
+        "https://shopbug.herokuapp.com/users/login",
         { email, password, role },
         {
           headers: { "Content-Type": "application/json" },

@@ -140,7 +140,7 @@ export const Register =({show,setShow,setLoginstate})=>{
     }
       axios
         .post(
-          "http://localhost:5035/users/register",
+          "https://shopbug.herokuapp.com/users/register",
           { name, email, password, role },
           {
             headers: { "Content-Type": "application/json" },

@@ -318,7 +318,7 @@ Statictical.getInitialProps = async (ctx) => {
   Now.setDate(Now.getDate()+1);
   This_month_Bills_Start_date.setDate(1);
   const resThismonthBills = await fetch(
-    "http://localhost:5035/bills/dateRange?startDate=" +
+    "https://shopbug.herokuapp.com/bills/dateRange?startDate=" +
     deformDate(This_month_Bills_Start_date) +
       "&endDate=" +
       deformDate(Now)
@@ -336,7 +336,7 @@ Statictical.getInitialProps = async (ctx) => {
   Last_month_Bills_End_date.setMonth(Last_month_Bills_End_date.getMonth() + 1);
   Last_month_Bills_End_date.setDate(0);
   const res_Last_month_Bills = await fetch(
-    "http://localhost:5035/bills/dateRange?startDate=" +
+    "https://shopbug.herokuapp.com/bills/dateRange?startDate=" +
     deformDate(Last_month_Bills_Start_date) +
       "&endDate=" +
       deformDate(Last_month_Bills_End_date)
@@ -352,25 +352,25 @@ Statictical.getInitialProps = async (ctx) => {
   var Tomorrow = new Date();
   Tomorrow.setDate(Today.getDate() + 1);
   const res_Today_Bills = await fetch(
-    "http://localhost:5035/bills/dateRange?startDate=" +
+    "https://shopbug.herokuapp.com/bills/dateRange?startDate=" +
     deformDate(Today) +
       "&endDate=" +
       deformDate(Tomorrow)
   );
   const json_Today_Bills = await res_Today_Bills.json();
-  console.log("http://localhost:5035/bills/dateRange?startDate=" +
+  console.log("https://shopbug.herokuapp.com/bills/dateRange?startDate=" +
   deformDate(Last_month_Bills_Start_date) +
     "&endDate=" +
     deformDate(Last_month_Bills_End_date));
 
-  const res_All_Bills = await fetch("http://localhost:5035/bills");
+  const res_All_Bills = await fetch("https://shopbug.herokuapp.com/bills");
   const json_All_Bills = await res_All_Bills.json();
   //console.log(json_Total_Bills);
 
-  const res_All_Courses = await fetch("http://localhost:5035/coursesAll");
+  const res_All_Courses = await fetch("https://shopbug.herokuapp.com/coursesAll");
   const json_All_Courses = await res_All_Courses.json();
 
-  const res_All_Users = await fetch("http://localhost:5035/users?size=1000");
+  const res_All_Users = await fetch("https://shopbug.herokuapp.com/users?size=1000");
   const json_All_Users = await res_All_Users.json();
 
   return {

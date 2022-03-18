@@ -27,7 +27,7 @@ const Total = (props) => {
     const Acc = cookieCutter.get("Acc");
     if (Acc) {
       const fetchUser = async () => {
-        const res31 = await fetch("http://localhost:5035/users/" + Acc);
+        const res31 = await fetch("https://shopbug.herokuapp.com/users/" + Acc);
         const data = await res31.json();
         setUser(data);
         setAddress(data.address);
@@ -107,7 +107,7 @@ const Total = (props) => {
       } 
       else {
           var verifycode = randomNumber(6);
-          const response = await fetch("http://localhost:5035/users", {
+          const response = await fetch("https://shopbug.herokuapp.com/users", {
             method: "POST",
             body: JSON.stringify({
               email: email,

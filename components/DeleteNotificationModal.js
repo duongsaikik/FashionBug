@@ -50,7 +50,7 @@ const DeleteNotificationModal = ({
       image.delete();
     }
     
-     axios.delete("http://localhost:5035/" + prefix + "s/" + id); 
+     axios.delete("https://shopbug.herokuapp.com/" + prefix + "s/" + id); 
   };
   const modalContent = show ? (
     <StyledModalOverlay>
