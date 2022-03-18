@@ -6,6 +6,7 @@
     "dev": "set port=4220 && next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
     "lint": "next lint"
   },
   "dependencies": {
