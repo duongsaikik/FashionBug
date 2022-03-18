@@ -4,7 +4,7 @@ import NumberFormat from 'react-number-format';
 const HistoryBill = (props) => {
     const { bill } = props;
     const { detail } = props;
-
+  
     return (
         <>
             <div className="detail_bill_body">
@@ -25,15 +25,25 @@ const HistoryBill = (props) => {
                     <div className="hisBill_detail_content">
                     <table >
                         {
-                            bill.map((item, index) => {
-                                return <DetailBill key={index} detail={item} />
-
-                            })
-                            /*  bill.map((item,index) =>{
-                                 
-                                     return <DetailBill key={index} bill={item} detail={item}/>
+                          bill ? bill.map((item, index) => {
+                                return <DetailBill 
+                                key={index} 
+                                id={item._id}
+                                address={item.Address}
+                                billDate={item.BillDate}
+                                product={item.Products}
+                                province={item.Province}
+                                status={item.Status}
+                                totalPrice={item.TotalPrice}
+                                idShipper={item.idShipper}
+                                userEmail={item.userEmail}
+                                userId={item.userId}
+                                userName={item.userName}
+                                 />
                                
-                             }) */
+                            })
+                            : ''
+                           
                         }
                     </table>
                     </div>

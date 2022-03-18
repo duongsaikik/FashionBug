@@ -1,24 +1,31 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
-const Info = ({ data }) => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+const Info = ({ 
+  id,
+  name,
+  email,
+  phoneNumber,
+  sex,
+  address,
+ }) => {
+  const [emaill, setEmail] = useState("");
+  const [namee, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [sex, setSex] = useState("");
-  const [address, setAddress] = useState("");
+  const [sexx, setSex] = useState("");
+  const [addresss, setAddress] = useState("");
   useEffect(() => {
-    setEmail(data.email);
-    setName(data.name);
-    setPhone(data.phoneNumber);
-    setSex(data.sex);
-    setAddress(data.address);
-  }, [data]);
+    setEmail(email);
+    setName(name);
+    setPhone(phoneNumber);
+    setSex(sex);
+    setAddress(address);
+  }, [email]);
   function UpdateCloud() {
     axios
       .put(
-        "http://localhost:5035/users/" + data._id,
-        { sex: sex,phoneNumber:phone, address: address },
+        "http://localhost:5035/users/" + id,
+        { sex: sexx,phoneNumber:phone, address: addresss },
         {
           headers: { "Content-Type": "application/json" },
         }
@@ -43,12 +50,12 @@ const Info = ({ data }) => {
       <div className="name_account_detail wk">
           <label>Tên</label>
 
-          <span className="detail_info_content">{data.name}</span>
+          <span className="detail_info_content">{name}</span>
         </div>
         <div className="email_account_detail wk">
           <label>Email</label>
 
-          <span className="detail_info_content">{email}</span>
+          <span className="detail_info_content">{emaill}</span>
         </div>
        
 
@@ -68,7 +75,7 @@ const Info = ({ data }) => {
               type="radio"
               value="Nam"
               name="gt"
-              checked={sex === "Nam" ? "checked" : ""}
+              checked={sexx === "Nam" ? "checked" : ""}
               onChange={(e) => {
                 setSex(e.target.value);
               }}
@@ -80,7 +87,7 @@ const Info = ({ data }) => {
               type="radio"
               value="Nữ"
               name="gt"
-              checked={sex === "Nữ" ? "checked" : ""}
+              checked={sexx === "Nữ" ? "checked" : ""}
               onChange={(e) => {
                 setSex(e.target.value);
               }}
@@ -92,10 +99,10 @@ const Info = ({ data }) => {
           <label>Địa Chỉ</label>
           <textarea
             className="detail_info_content"
-            value={address}
+            value={addresss}
             onChange={(e) => setAddress(e.target.value)}
           >
-            {data.address}
+            {address}
           </textarea>
         </div>
 

@@ -91,7 +91,16 @@ export default  function UserPage({data,dataBill}) {
                     <div className="profile_content">
                         {
                            pageBill === 1 ?  <Bill  bill={dataBill}/>
-                            : statePage ?  <Info data={data}/> : <ChangePass data={data}/>
+                            : statePage ?  <Info
+                             data={data}
+                            id={data._id}
+                            name={data.name}
+                            email={data.email}
+                            phoneNumber={data.phoneNumber}
+                            sex={data.sex}
+                            address={data.addsress}
+
+                             /> : <ChangePass data={data}/>
                         }
                        
                     </div>
