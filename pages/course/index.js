@@ -70,7 +70,7 @@ export default function Home({ data }) {
 
   const filterWithDateRange = () => {
     axios
-      .get("http://localhost:5035/courses/dateRange", {
+      .get("https://shopbug.herokuapp.com/courses/dateRange", {
         params: {
           startDate,
           endDate,

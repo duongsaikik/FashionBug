@@ -113,10 +113,10 @@ export default  function UserPage({data,dataBill}) {
  UserPage.getInitialProps = async (ctx) => {
     const { Acc } = cookies(ctx);
  
-        const res21 = await fetch("http://localhost:5035/users/" + Acc);
+        const res21 = await fetch("https://shopbug.herokuapp.com/users/" + Acc);
         var json21 = await res21.json();
 
-        const json = await fetch(`http://localhost:5035/users/${Acc}/customer/bills`);
+        const json = await fetch(`https://shopbug.herokuapp.com/users/${Acc}/customer/bills`);
         const Billdata = await json.json();
      
 
