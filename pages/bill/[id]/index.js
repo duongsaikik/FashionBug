@@ -3,8 +3,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import styled from "styled-components";
 import Link from "next/link";
-import Image from "next/image";
-import SideBar from "../../../components/SideBar";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
@@ -16,7 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import DeleteNotificationModal from "../../../components/DeleteBillProductNotificationModal";
 
-export const getStaticPaths = async () => {
+/* export const getStaticPaths = async () => {
   const res = await fetch("https://shopbug.herokuapp.com/bills");
   const data = await res.json();
 
@@ -31,7 +30,7 @@ export const getStaticPaths = async () => {
     paths,
     fallback: false,
   };
-};
+}; */
 const ContentContainer = styled.div`
   padding-left: 250px;
 `;
@@ -61,7 +60,7 @@ const Button = styled.button`
     color: #000;
   }
 `;
-export const getStaticProps = async (context) => {
+/* export const getStaticProps = async (context) => {
 
   const id = context.params.id;
   const res = await fetch("https://shopbug.herokuapp.com/bills/" + id);
@@ -72,12 +71,24 @@ export const getStaticProps = async (context) => {
     },
   };
 };
-
-const Home = ({ item }) => {
- 
+ */
+const Home = () => {
+  const router = useRouter();
+  
+  const [item,setItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [itemId, setItemId] = useState("false");
   const [cmtId, setCmtId] = useState("false");
+
+  useEffect(() =>{
+      const fetchBillDetail = async () =>{
+        const res = await fetch("https://shopbug.herokuapp.com/bills/" + router.query.id);
+        const data = await res.json();
+          setItem(data);
+      }
+      fetchBillDetail();
+  },[router])
+
   return (
     <div>
       <DeleteNotificationModal
@@ -112,7 +123,7 @@ const Home = ({ item }) => {
                 </tr>
               </thead>
               <tbody>
-                {item.Products.map((it,index) => (
+                {item ? item.Products.map((it,index) => (
                   <tr key={index}>
                     <td>{it.product.id}</td>
                     <td>{it.product.name}</td>
@@ -134,7 +145,7 @@ const Home = ({ item }) => {
                       </a>
                     </td>
                   </tr>
-                ))}
+                )) : ''}
               </tbody>
             </table>
           </div>

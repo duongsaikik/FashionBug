@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import SideBar from "../../../components/SideBar";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFax, faPhone } from "@fortawesome/free-solid-svg-icons";
 import ModalPhanCongGH from "../../../components/ModalPhanCongGH";
@@ -8,7 +9,7 @@ import ModalHuyDon from "../../../components/ModalHuyDon";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
-export const getStaticPaths = async () => {
+/* export const getStaticPaths = async () => {
   const res = await fetch("https://shopbug.herokuapp.com/bills");
   const data = await res.json();
 
@@ -36,7 +37,7 @@ export const getStaticProps = async (context) => {
     },
   };
 };
-
+ */
 const ContentContainer = styled.div`
   padding-left: 250px;
 `;
@@ -67,11 +68,23 @@ const Button = styled.button`
   }
 `;
 
-const Home = ({ item }) => {
+const Home = () => {
+  const router = useRouter();
+
+  const [item,setItem] = useState(null)
+  console.log(item)
   const [showPhanCongModal, setShowPhanCongModal] = useState(false);
   const [showModalHuyDon, setShowModalHuyDon] = useState(false);
   const [relativeTable, setRelativeTable] = useState([]);
 
+    useEffect(() =>{
+        const fetchBill = async () =>{
+           const res = await fetch("https://shopbug.herokuapp.com/bills/" + router.query.id);
+          const data = await res.json(); 
+              setItem(data);
+        }
+        fetchBill();
+    },[router])
   const getRelativeData = () => {
     axios
       .get("https://shopbug.herokuapp.com/coursesAll")
@@ -128,14 +141,14 @@ const Home = ({ item }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {item.Products.map((it,index) => (
+                  {item ? item.Products.map((it,index) => (
                     <tr key={index}>
                       <td>{it.product.id}</td>
                       <td>{it.quantity}</td>
                       <td>{it.product.price}</td>
                       <td>{it.product.price * it.quantity}</td>
                     </tr>
-                  ))}
+                  )):''}
                 </tbody>
               </table>
             </div>
