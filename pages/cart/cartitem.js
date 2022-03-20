@@ -2,19 +2,18 @@ import React, { useEffect, useState } from "react";
 
 import NumberFormat from 'react-number-format';
 const CartItem = ({id,image,name, color, size, price, quantity,actUpdateAmountCart,actDeleteInCart}) => {
-  
+    
     const [amount, setAmount] = useState(quantity);
- 
- 
+    const product = {
+        id,image,name, color, size, price
+    }
+  
  
     useEffect(() => {
         if (amount !== '') {
-             actUpdateAmountCart({
-              product:{
-                id,image,name, color, size, price
-              },
-              quantity
-             }, Number(amount)); 
+             actUpdateAmountCart(
+                product
+             , Number(amount)); 
         }
     },[amount]);
     //props contain cart and cart contain product, quantity, and 1 action to delete cart of each other 

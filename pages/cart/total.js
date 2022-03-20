@@ -34,7 +34,7 @@ const Total = (props) => {
         setEmail(data.email)
         setName(data.name)
         setPhone(data.phoneNumber)
-        console.log(data)
+       
       };
       fetchUser();
     }

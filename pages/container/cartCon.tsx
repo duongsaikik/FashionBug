@@ -76,8 +76,7 @@ const mapDispatchToProps = (dispatch,props) =>{
              
             dispatch(actDeleteInCart(id,color,size));     
         },
-         actUpdateAmountCart:(product,quantity) =>{
-             
+         actUpdateAmountCart:(product,quantity) =>{                     
             dispatch(actUpdateAmountCart(product,quantity));     
         },
         actDeleteAllCart:() =>{
