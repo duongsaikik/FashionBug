@@ -65,6 +65,8 @@ const Form = () => {
   const [tag, setTag] = useState("");
   const { CKEditor, ClassicEditor } = editorRef.current || {};
   const [data, setData] = useState("");
+  const [announce,setAnnounce] = useState('')
+
   useEffect(() => {
     editorRef.current = {
       CKEditor: require("@ckeditor/ckeditor5-react").CKEditor, //Added .CKEditor
@@ -166,13 +168,53 @@ const Form = () => {
   
   const handleSubmit = () => {
     
-    if (name === "" || sex === "" || price === "" || age === "" || selectedColors === "" || selectedSizes === "" || tag === "" || selectType === "" || !imgFire) {
+    if (name === "" || sex === "" || price === "" || age === "" || selectedColors === "" || selectedSizes === "" || selectedMaterials === "" || selectType === "" || !imgFire) {
       swal("Thông báo", "Thông tin cung cấp cho sản phẩm còn thiếu", "error")
     } else if(Number(price) < 0){
       swal("Thông báo", "Giá tiền phải lớn hơn 0", "error")
     }else{
       handleSave();
     }
+  }
+  const handleSelectColor = () => (color) => {  
+    if(color.target.value === "Chọn"){
+      setSelectedColors(""); 
+      setAnnounce("màu của sản phẩm") 
+    }else{
+      setSelectedColors(color.target.value);  
+    }
+
+  };
+  const handleSelectMaterial = () => (material) => {
+    if(material.target.value === "Chọn"){
+      setSelectedMaterials("");  
+      setAnnounce("chất liệu của sản phẩm") 
+    }else
+    setSelectedMaterials(material.target.value);
+  };
+  const handleSelectSize = () => (size) => {
+    if(size.target.value === "Chọn"){
+      setSelectedSizes("");  
+      setAnnounce("size của sản phẩm") 
+    }else
+    setSelectedSizes(size.target.value);
+  };
+  const handleSelectType = () => (type) => {
+    if(type.target.value === "Chọn"){
+      setSelectType("");  
+      setAnnounce("loại của sản phẩm") 
+    }else
+    setSelectType(type.target.value);
+    
+  };
+ 
+  const handlerType = (e) =>{
+    const btn = document.querySelectorAll('.collapse')
+     btn.forEach(function(ele,index) {
+      if(ele !== e.target){
+        ele.classList.remove('show');
+      }
+    }) 
   }
 
   return (
@@ -193,19 +235,7 @@ const Form = () => {
           onChange={handleChange}
         />
       </div>
-      <div className="form-group mb-2">
-        <label htmlFor="tag">Mã lô hàng</label>
-        <input
-          type="text"
-          className="form-control"
-          id="tag"
-          placeholder="Nhập mã lô hàng"
-          required
-          name="tag"
-          value={tag}
-          onChange={handleChange}
-        />
-      </div>
+     
       <div className="form-group mb-2">
         <label htmlFor="description">Mô tả</label>
         {editorLoaded ? (
@@ -292,117 +322,149 @@ const Form = () => {
           <option>Nữ</option>
         </select>
       </div>
-      <div style={{ display: "flex" }}>
-        <div className="form-group" style={{ marginTop: "12px" }}>
-          <label htmlFor="sex">Màu</label>
-          {colors.map((color, index) => (
-            <div key={index}>
-              <input
-                name="color"
-                type="radio"
-                onChange={() => setSelectedColors(color)}
-              />
-              <label style={{ marginLeft: "8px" }}>{color}</label>
+      <div>
+          <div className="form-group" style={{ marginTop: "12px" }}>
+            <label htmlFor="sex">Màu *</label>
+            <select className="form-select" aria-label="Default select example" onChange={handleSelectColor()}>
+              <option selected>Chọn</option>
+              {colors.map((color, index) =>
+              (
+                <option key={index} selected={color === selectedColors ? true : false} value={color} >{color}</option>
+              )
+              )}
+            </select>
+
+          </div>
+          <div
+            className="form-group"
+
+          >
+            <label htmlFor="size">Kích cỡ *</label>
+            <select className="form-select" aria-label="Default select example" onChange={handleSelectSize()}>
+              <option selected>Chọn</option>
+              {sizes.map((size, index) =>
+              (
+                <option key={index} selected={size === selectedSizes ? true : false} value={size} >{size}</option>
+              )
+              )}
+            </select>
+          </div>
+          <div
+            className="form-group"
+
+          >
+            <label htmlFor="material">Chất liệu *</label>
+            <select className="form-select" aria-label="Default select example" onChange={handleSelectMaterial()}>
+              <option selected>Chọn</option>
+              {materials.map((material, index) =>
+              (
+                <option key={index} selected={material === selectedMaterials ? true : false} value={material} >{material}</option>
+              )
+              )}
+            </select>
+
+          </div>
+          <div
+            className="form-group"
+
+          >
+            <p>
+              <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1" onClick={handlerType}>
+                Áo *
+              </button>
+            </p>
+            <div className="collapse" id="collapseExample1">
+              <div className="card card-body">
+              <label htmlFor="material">Áo</label>
+                <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
+                  <option selected>Chọn</option>
+                  {shirtTypes.map((shirt, index) =>
+                  (
+                    <option key={index} selected={shirt === selectType ? true : false} value={shirt} >{shirt}</option>
+                  )
+                  )}
+                </select>
+              </div>
             </div>
-          ))}
-        </div>
-        <div
-          className="form-group"
-          style={{ marginTop: "12px", marginLeft: "12px" }}
-        >
-          <label htmlFor="size">Kích cỡ</label>
-          {sizes.map((size, index) => (
-            <div key={index}>
-              <input
-                name="size"
-                type="radio"
-                onChange={() => setSelectedSizes(size)}
-              />
-              <label style={{ marginLeft: "8px" }}>{size}</label>
+            
+           
+          </div>
+
+          <div
+            className="form-group"
+          
+          >
+             <p>
+              <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2" onClick={handlerType}>
+                Quần *
+              </button>
+            </p>
+            <div className="collapse" id="collapseExample2">
+              <div className="card card-body">
+              <label htmlFor="material">Quần</label>
+                <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
+                  <option selected>Chọn</option>
+                  {shortsTypes.map((short, index) =>
+                  (
+                    <option key={index} selected={short === selectType ? true : false} value={short} >{short}</option>
+                  )
+                  )}
+                </select>
+              </div>
             </div>
-          ))}
-        </div>
-        <div
-          className="form-group"
-          style={{ marginTop: "12px", marginLeft: "12px" }}
-        >
-          <label htmlFor="material">Chất liệu</label>
-          {materials.map((material, index) => (
-            <div key={index}>
-              <input
-                name="material"
-                type="radio"
-                onChange={() => setSelectedMaterials(material)}
-              />
-              <label style={{ marginLeft: "8px" }}>{material}</label>
+            
+           
+          </div>
+          <div
+            className="form-group"          
+          >
+             <p>
+              <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3" onClick={handlerType}>
+                Trẻ con *
+              </button>
+            </p>
+            <div className="collapse" id="collapseExample3">
+              <div className="card card-body">
+              <label htmlFor="material">Trẻ con</label>
+                <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
+                  <option selected>Chọn</option>
+                  {clothes.map((short, index) =>
+                  (
+                    <option key={index} selected={short === selectType ? true : false} value={short} >{short}</option>
+                  )
+                  )}
+                </select>
+              </div>
             </div>
-          ))}
-        </div>
-        <div
-          className="form-group"
-          style={{ marginTop: "12px", marginLeft: "12px" }}
-        >
-          <label htmlFor="material">Áo</label>
-          {shirtTypes.map((shirt, index) => (
-            <div key={index}>
-              <input
-                name="type"
-                type="radio"
-                onClick={() => setSelectType(shirt)}
-              />
-              <label style={{ marginLeft: "8px" }}>{shirt}</label>
+           
+            
+          </div>
+          <div
+            className="form-group"
+           
+          >
+              <p>
+              <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4" onClick={handlerType}>
+                Phụ kiện *
+              </button>
+            </p>
+            <div className="collapse" id="collapseExample4">
+              <div className="card card-body">
+              <label htmlFor="material">Phụ kiện</label>
+                <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
+                  <option selected>Chọn</option>
+                  {shoes.map((short, index) =>
+                  (
+                    <option key={index} selected={short === selectType ? true : false} value={short} >{short}</option>
+                  )
+                  )}
+                </select>
+              </div>
             </div>
-          ))}
+           
+          </div>
         </div>
-        <div
-          className="form-group"
-          style={{ marginTop: "12px", marginLeft: "12px" }}
-        >
-          <label htmlFor="material">Quần</label>
-          {shortsTypes.map((short, index) => (
-            <div key={index}>
-              <input
-                name="type"
-                type="radio"
-                onClick={() => setSelectType(short)}
-              />
-              <label style={{ marginLeft: "8px" }}>{short}</label>
-            </div>
-          ))}
-        </div>
-        <div
-          className="form-group"
-          style={{ marginTop: "12px", marginLeft: "12px" }}
-        >
-          <label htmlFor="material">Trẻ con</label>
-          {clothes.map((short, index) => (
-            <div key={index}>
-              <input
-                name="type"
-                type="radio"
-                onClick={() => setSelectType(short)}
-              />
-              <label style={{ marginLeft: "8px" }}>{short}</label>
-            </div>
-          ))}
-        </div>
-        <div
-          className="form-group"
-          style={{ marginTop: "12px", marginLeft: "12px" }}
-        >
-          <label htmlFor="material">Giày</label>
-          {shoes.map((short, index) => (
-            <div key={index}>
-              <input
-                name="type"
-                type="radio"
-                onClick={() => setSelectType(short)}
-              />
-              <label style={{ marginLeft: "8px" }}>{short}</label>
-            </div>
-          ))}
-        </div>
-      </div>
+
       <div className="form-group">
         <label htmlFor="age">Độ tuổi</label>
         <select

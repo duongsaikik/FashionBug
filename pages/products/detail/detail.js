@@ -158,7 +158,7 @@ const Detail = ({
       </div>
     );
   });
-  var related = relate ? relate.map((item, index) => {
+ /*  var related = relate ? relate.map((item, index) => {
     return <Extend
       key={index}
       id={item._id}
@@ -170,6 +170,13 @@ const Detail = ({
     
     />
   }) : (
+    ""
+  ); */
+  var related = relate ? (
+    <>
+      <Extend relate={relate} length={relate.length}/>
+    </>
+  ) : (
     ""
   );
   return (
@@ -319,18 +326,11 @@ const Detail = ({
           </div>
         </div>
         <Description comments={comments} id={id} />
-        <div className="extension-product">
-          <div className="extension-product-body">
-            <div>
-              <h4>SẢN PHẨM LIÊN QUAN</h4>
-
-              <div className=""></div>
-              <Slider {...settingsExtra}>
+      
+             
                 {related}
-              </Slider>
-            </div>
-          </div>
-        </div>
+           
+          
 
       </div>
     </>

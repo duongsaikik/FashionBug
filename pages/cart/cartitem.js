@@ -26,7 +26,7 @@ const CartItem = ({id,image,name, color, size, price, quantity,actUpdateAmountCa
        setAmount(quantity);
          actUpdateAmountCart(id); 
     }
-  
+  console.log(amount)
     return (
         <>
             <div className="product1-detail" id="product1-detail">
@@ -61,7 +61,7 @@ const CartItem = ({id,image,name, color, size, price, quantity,actUpdateAmountCa
                                 }} />
                             </div>
                             <div className="amount">
-                                <input type="text" name="amount" id="amount" value={quantity} onChange={ChangeAmount} />
+                                <input type="text" name="amount" id="amount" value={amount} onChange={ChangeAmount} />
                             </div>
                             <div className="minus">
                                 <input type="button" id="plus" value="+" className="plus" onClick={() => {

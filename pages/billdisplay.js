@@ -18,7 +18,7 @@ const BillDisplay = (props) => {
        
     }, [])
     console.log(haha) */
-    console.log(data)
+  
     var detail = data ? data.Products.map((item, index) => {
         return (
             <div key={index} className="product1-detail" id="product1-detail">
@@ -180,7 +180,7 @@ const BillDisplay = (props) => {
 export default BillDisplay;
 BillDisplay.getInitialProps = async (a)=>{
     const {Bill} = cookies(a)
-    const response = await fetch(`http://localhost:5035/bills/${Bill}`)
+    const response = await fetch(`https://shopbug.herokuapp.com/bills/${Bill}`)
     const dataa = await response.json();
     return {
         data:dataa

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-
+import axios from "axios";
 
 import  VerifyCode  from "./verifyCode";
 
@@ -85,38 +85,22 @@ const Register = ({ show, setShow, reshow }) => {
       setvalidatemessage("Mật khẩu không trùng nhau");
     }
     else {
-      const response = await fetch('https://shopbug.herokuapp.com/users/register', {
-        method: 'POST',
-        body: JSON.stringify({
-          name, email, password, role
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const data = await response.json()
-      if (data.exist === 1)
-        setvalidatemessage("Email đã tồn tại");
-      else if (data.exist === 2) {
-        setvalidatemessage("Tên đã tồn tại");
-      } else {
       var verifycode = randomNumber(6);
-        const response = await fetch("https://shopbug.herokuapp.com/users", {
-          method: "POST",
-          body: JSON.stringify({
-            email: email,
-            subject: "Xác nhận Gmail",
-            htmlContent: "Mã xác nhận của bạn là: " + verifycode,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-//        hide();
-        /*  setLoginstate[0](setLoginstate[6](data.user.name, setLoginstate[1], setLoginstate[2], setLoginstate[3], setLoginstate[4], setLoginstate[5]));  */
-        setcode(verifycode);
-        setShowVerify(true);
-      }
+      var requestCode = {
+        email: email,
+        subject: "Xác nhận đăng ký tài khoản",
+        htmlContent: "Mã xác nhận của bạn là: " + verifycode,
+      };
+        const {data} = await axios.post("https://shopbug.herokuapp.com/users",requestCode);
+     
+        if(data.message === true){
+          setcode(verifycode);
+          setShowVerify(true);
+        }else{
+          setvalidatemessage("Lỗi không thể tạo tài khoản");
+        }
+     
+      
     }
   }
   /* cookieCutter.set('Acc', response.data.user._id);
@@ -195,10 +179,15 @@ const Register = ({ show, setShow, reshow }) => {
           </div>
         </div>
         <VerifyCode
-          show={ShowVerify}
-          setShow={setShowVerify}
-          code={code}
-          setSussessState={Register}
+           show={ShowVerify}
+           setShow={setShowVerify}
+           code={code}
+           setSussessState={Register}
+           email={email}
+           role={role}
+           password={password}
+           name={name}
+           setvalidatemessage={setvalidatemessage}
       />
       </>
     ) : null}

@@ -10,11 +10,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
-Home.getInitialProps = async (ctx) => {
-  const res = await fetch("https://shopbug.herokuapp.com/bills");
-  const json = await res.json();
-  return { data: json };
-};
 
 const ContentContainer = styled.div`
   padding-left: 250px;
@@ -61,7 +56,7 @@ export default function Home({ data }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [method, setMethod] = useState("Theo ngày và thuộc tính");
-
+  
   const handleChange = () => (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -325,3 +320,8 @@ export default function Home({ data }) {
     </div>
   );
 }
+Home.getInitialProps = async (ctx) => {
+  const res = await fetch("https://shopbug.herokuapp.com/bills");
+  const json = await res.json();
+  return { data: json };
+};

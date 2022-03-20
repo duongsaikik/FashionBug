@@ -40,8 +40,8 @@ const Modal = ({ show, onClose, children, title, item }) => {
     return re;
   }
   const router = useRouter();
-  const setBillForShipper = (shipper) => {
-    axios
+  const setBillForShipper = async (shipper) => {
+   await axios
       .get("https://shopbug.herokuapp.com/coursesAll")
       .then((res) => {
         let getAll = res.data;
@@ -67,7 +67,7 @@ const Modal = ({ show, onClose, children, title, item }) => {
       .catch((e) => {
         console.log(e);
       });
-    axios
+   await axios
       .put("https://shopbug.herokuapp.com/users/" + shipper._id, {
         currentBillQuantity: shipper.currentBillQuantity + 1,
       })
@@ -77,7 +77,7 @@ const Modal = ({ show, onClose, children, title, item }) => {
       .catch((e) => {
         console.log(e);
       });
-    axios
+   await axios
       .put("https://shopbug.herokuapp.com/bills/" + item._id, {
         idShipper: shipper._id,
         shipperName: shipper.name,
@@ -90,8 +90,8 @@ const Modal = ({ show, onClose, children, title, item }) => {
         console.log(err);
       });
 
-        axios
-          .post("https://shopbug.herokuapp.com/users/"  , {
+       await axios
+          .post("https://shopbug.herokuapp.com/users/" , {
             email: item.userEmail,
             subject: "Thông báo đơn hàng đang được giao",
             htmlContent: `

@@ -5,7 +5,7 @@ import { faHome, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import styled from "styled-components";
-import {storage}  from "../../../components/firebase"
+import { storage } from "../../../components/firebase"
 
 const Button = styled.button`
   border-radius: 12px;
@@ -62,7 +62,7 @@ function Form({ item }) {
   const [dateIn, setDateIn] = useState(item.DateIn);
   const [age, setAge] = useState(item.age);
   const [price, setPrice] = useState(item.Discount ? item.Discount : item.Price);
-  const [discount, setDiscount] = useState(100/(item.Discount / (item.Discount - item.Price)));
+  const [discount, setDiscount] = useState(100 / (item.Discount / (item.Discount - item.Price)));
   const [enteringQuantity, setEnteringQuantity] = useState(
     item.enteringQuantity
   );
@@ -103,15 +103,18 @@ function Form({ item }) {
     "Đầm",
   ]);
   const [selectedMaterials, setSelectedMaterials] = useState(item.materials);
-  const [selectType,setSelectType] = useState(item.type);
+  const [selectType, setSelectType] = useState(item.type);
   const [soldQuantity, setSoldQuantity] = useState(item.soldQuantity);
   const [selectedImage, setSelectedImage] = useState(item.Image);
   const [isSucceed, setIsSucceed] = useState("");
-  const [imgFire,setImgFire] = useState(null)
+  const [imgFire, setImgFire] = useState(null)
   const [imageUrl, setImageUrl] = useState(item.Image);
   const [tag, setTag] = useState(item.tag);
   const { CKEditor, ClassicEditor } = editorRef.current || {};
   const [data, setData] = useState(item.Description);
+
+  const [announce,setAnnounce] = useState('')
+
   useEffect(() => {
     editorRef.current = {
       CKEditor: require("@ckeditor/ckeditor5-react").CKEditor, //Added .CKEditor
@@ -120,67 +123,70 @@ function Form({ item }) {
     setEditorLoaded(true);
     setImageUrl(item.Image)
   }, []);
-  
-  const handleChangeImg  = (e) =>{
+
+  const handleChangeImg = (e) => {
     setImgFire(e.target.files[0]);
     console.log(e.target.files[0])
   }
 
-  const handleSave = () =>{
+  const handleSave = () => {
     const uploadTask = storage.ref(`images/${imgFire.name}`).put(imgFire);
     uploadTask.on(
       "state_changed",
-      snapshot => {},
-      error =>{
+      snapshot => { },
+      error => {
         console.log(error)
       },
-      () =>{
+      () => {
         storage
-        .ref("images")
-        .child(imgFire.name)
-        .getDownloadURL()
-        .then(url =>{
-          setImageUrl(url)
-        
-          axios
-          .put(
-            "http://localhost:5035/courses/" + item._id,
-            {
-              Name: name,
-              Description: description,
-              Price: discount > 0 ? price - (price * (discount /100)) :  price,
-              Discount:discount > 0 ? price : null,
-              enteringQuantity,
-              Sex: sex,
-              enteringQuantity,
-              age: age,
-              colors: selectedColors,
-              size: selectedSizes,
-              materials : selectedMaterials,
-              tag,
-              Image: `${url}`,
-              type:selectType
-            },
-            {
-              headers: { "Content-Type": "application/json" },
-            }
-          )
-          .then(function (response) {
-            console.log(response);
-            router.push("/course");
+          .ref("images")
+          .child(imgFire.name)
+          .getDownloadURL()
+          .then(url => {
+            setImageUrl(url)
+            console.log(url)
+            axios
+              .put(
+                "https://shopbug.herokuapp.com/courses/" + item._id,
+                {
+                  Name: name,
+                  Description: description,
+                  Price: discount > 0 ? price - (price * (discount / 100)) : price,
+                  Discount: discount > 0 ? price : null,
+                  enteringQuantity,
+                  Sex: sex,
+                  enteringQuantity,
+                  age: age,
+                  colors: selectedColors,
+                  size: selectedSizes,
+                  materials: selectedMaterials,
+                  tag,
+                  Image: `${url}`,
+                  type: selectType
+                },
+                {
+                  headers: { "Content-Type": "application/json" },
+                }
+              )
+              .then(function (response) {
+                console.log(response);
+                router.push("/course");
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
           })
-          .catch(function (error) {
-            console.log(error);
-          }); 
-        })
       }
     )
   }
- 
+
   const handleChange = () => (e) => {
     const name = e.target.name;
     const value = e.target.value;
     if (name == "name") {
+      if(value === ""){
+        setAnnounce("tên của sản phẩm")
+      }else
       setName(value);
     } else if (name == "description") {
       setDescription(value);
@@ -193,109 +199,127 @@ function Form({ item }) {
     } else if (name == "price") {
       let tmp = parseInt(value);
       setPrice(tmp);
-    }else if (name == "discount") {
+    } else if (name == "discount") {
       let tmp = Number(value);
-       setDiscount(tmp)
-    }else if (name == "enteringQuantity") {
+      setDiscount(tmp)
+    } else if (name == "enteringQuantity") {
       let tmp = parseInt(value);
       setEnteringQuantity(tmp);
     } else if (name == "age") {
-      if(value === "Người lớn")
-      setAge("Adult");
+      if (value === "Người lớn")
+        setAge("Adult");
       else
         setAge("Kid");
     }
   };
-
-  const handleSubmit = async () => {    
-    if (name === "" || sex === "" || price === "" || age === "" || selectedColors === "" || selectedSizes === "" || tag === "" || selectType === "") {
-      swal("Thông báo", "Thông tin cung cấp cho sản phẩm còn thiếu", "error")
-    }else if(Number(price) < 0){
+  
+  const handleSubmit = async () => {
+    if (name === "" || sex === "" || price === "" || age === "" || selectedColors === "" || selectedSizes === "" || selectType === "" || selectedMaterials === "") {
+      swal("Thông báo", "Thông tin cung cấp cho " + announce +" còn thiếu", "error")
+    } else if (Number(price) < 0) {
       swal("Thông báo", "Giá tiền phải lớn hơn 0", "error")
-    }else if(imageUrl !== ""){
+    } else if (imgFire === null) {
       axios
-      .put(
-        "http://localhost:5035/courses/" + item._id,
-        {
-          Name: name,
-          Description: description,
-          Price: discount > 0 ? price - (price * (discount /100)) :  price,
-          Discount:discount > 0 ? price : null,
-          enteringQuantity,
-          Sex: sex,
-          enteringQuantity,
-          age: age,
-          colors: selectedColors,
-          size: selectedSizes,
-          materials : selectedMaterials,
-          tag,
-          Image: imageUrl,
-          type:selectType
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      )
-      .then(function (response) {
-        console.log(response);
-        router.push("/course");
-      })
-      .catch(function (error) {
-        console.log(error);
-      }); 
+        .put(
+          "https://shopbug.herokuapp.com/courses/" + item._id,
+          {
+            Name: name,
+            Description: description,
+            Price: discount > 0 ? price - (price * (discount / 100)) : price,
+            Discount: discount > 0 ? price : null,
+            enteringQuantity,
+            Sex: sex,
+            enteringQuantity,
+            age: age,
+            colors: selectedColors,
+            size: selectedSizes,
+            materials: selectedMaterials,
+            tag,
+            Image: imageUrl,
+            type: selectType
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+          
+          router.push(router.asPath);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else
+      handleSave();
+  };
+  const handleSelectColor = () => (color) => {  
+    if(color.target.value === "Chọn"){
+      setSelectedColors(""); 
+      setAnnounce("màu của sản phẩm") 
+    }else{
+      setSelectedColors(color.target.value);  
+    }
+
+  };
+  const handleSelectMaterial = () => (material) => {
+    if(material.target.value === "Chọn"){
+      setSelectedMaterials("");  
+      setAnnounce("chất liệu của sản phẩm") 
     }else
-     handleSave();  
+    setSelectedMaterials(material.target.value);
   };
-  const handleSelectColor = (color) => () => {
-    setSelectedColors(color);
+  const handleSelectSize = () => (size) => {
+    if(size.target.value === "Chọn"){
+      setSelectedSizes("");  
+      setAnnounce("size của sản phẩm") 
+    }else
+    setSelectedSizes(size.target.value);
   };
-  const handleSelectMaterial = (material) => () => {
-    setSelectedMaterials(material);
+  const handleSelectType = () => (type) => {
+    if(type.target.value === "Chọn"){
+      setSelectType("");  
+      setAnnounce("loại của sản phẩm") 
+    }else
+    setSelectType(type.target.value);
+    
   };
-  const handleSelectSize = (size) => () => {
-    setSelectedSizes(size);
-  };
-  const handleSelectType = (type) => () => {
-    setSelectType(type);
-  };
+ 
+  const handlerType = (e) =>{
+    const btn = document.querySelectorAll('.collapse')
+     btn.forEach(function(ele,index) {
+      if(ele !== e.target){
+        ele.classList.remove('show');
+      }
+    }) 
+  }
+
   return (
     <div className="container_add">
       <div className="add_body">
-      <Link href={"/course"}>
-        <Button>
-          {" "}
-          <FontAwesomeIcon icon={faHome} />{" "}
-        </Button>
-      </Link>
-      <h2>Chi tiết sản phẩm</h2>
-     
-        <p style={{ margin: "8px 0", fontSize: "16px" }}>Ảnh sản phẩm</p>
-        <img src={imageUrl} width="200px" height="200px" />
+        <Link href={"/course"}>
+          <Button>
+            {" "}
+            <FontAwesomeIcon icon={faHome} />{" "}
+          </Button>
+        </Link>
+        <h2>Chi tiết sản phẩm</h2>
+
+        <p style={{ margin: "8px 0", fontSize: "16px" }}>Ảnh sản phẩm *</p>
+        <img src={imageUrl} alt={imageUrl} width="200px" height="200px" />
         <div className="form-group mb-2">
-          <label htmlFor="imageUrl">Hình ảnh</label>
-          
-           <input
-            type="file" 
-               
+
+
+          <input
+            type="file"
+
             onChange={handleChangeImg}
           />
+
+        </div>
       
-        </div>
         <div className="form-group mb-2">
-          <label htmlFor="tag">Mã lô hàng</label>
-          <input
-            type="text"
-            className="form-control"
-            id="tag"
-            placeholder="Nhập mã lô hàng"
-            required
-            name="tag"
-            value={tag}
-            onChange={handleChange()}
-          />
-        </div>
-        <div className="form-group mb-2">
-          <label htmlFor="name">Tên sản phẩm</label>
+          <label htmlFor="name">Tên sản phẩm *</label>
           <input
             type="text"
             className="form-control"
@@ -340,7 +364,7 @@ function Form({ item }) {
           )}
         </div>
         <div className="form-group mb-2">
-          <label htmlFor="price">Giá</label>
+          <label htmlFor="price">Giá *</label>
           <input
             type="number"
             className="form-control"
@@ -353,20 +377,20 @@ function Form({ item }) {
           />
         </div>
         <div className="form-group mb-2">
-        <label htmlFor="price">Giảm giá (%)</label>
-        <input
-          type="number"
-          className="form-control"
-          id="discount"
-          placeholder="Giảm giá"
-          required
-          name="discount"
-          value={discount}
-          onChange={handleChange()}
-        />
-      </div>
+          <label htmlFor="price">Giảm giá (%)</label>
+          <input
+            type="number"
+            className="form-control"
+            id="discount"
+            placeholder="Giảm giá"
+            required
+            name="discount"
+            value={discount}
+            onChange={handleChange()}
+          />
+        </div>
         <div className="form-group mb-2">
-          <label htmlFor="Curentcolors">Màu hiện tại</label>
+          <label htmlFor="Curentcolors">Màu hiện tại *</label>
           <input
             type="text"
             className="form-control"
@@ -379,7 +403,7 @@ function Form({ item }) {
           />
         </div>
         <div className="form-group mb-2">
-          <label htmlFor="CurrentSizes">Kích cỡ hiện tại</label>
+          <label htmlFor="CurrentSizes">Kích cỡ hiện tại *</label>
           <input
             type="text"
             className="form-control"
@@ -392,7 +416,7 @@ function Form({ item }) {
           />
         </div>
         <div className="form-group mb-2">
-          <label htmlFor="CurrentMaterials">Chất liệu hiện tại</label>
+          <label htmlFor="CurrentMaterials">Chất liệu hiện tại *</label>
           <input
             type="text"
             className="form-control"
@@ -405,143 +429,173 @@ function Form({ item }) {
           />
         </div>
         <div className="form-group mb-2">
-          <label htmlFor="CurrentMaterials">Loại hiện tại</label>
+          <label htmlFor="CurrentMaterials">Loại hiện tại *</label>
           <input
             type="text"
             className="form-control"
             id="CurrentMaterials"
-           
+
             required
             name="CurrentMaterials"
             value={selectType}
             disabled
           />
         </div>
-        <div style={{ display: "flex" }}>
+        <div>
           <div className="form-group" style={{ marginTop: "12px" }}>
-            <label htmlFor="sex">Màu</label>
-            {colors.map((color,index) => (
-              <div key={index}>
-                <input
-                  name="color"
-                  type="radio"
-                  onChange={handleSelectColor(color)}
-                />
-                <label style={{ marginLeft: "8px" }}>{color}</label>
-              </div>
-            ))}
+            <label htmlFor="sex">Màu *</label>
+            <select className="form-select" aria-label="Default select example" onChange={handleSelectColor()}>
+              <option selected>Chọn</option>
+              {colors.map((color, index) =>
+              (
+                <option key={index} selected={color === selectedColors ? true : false} value={color} >{color}</option>
+              )
+              )}
+            </select>
+
           </div>
           <div
             className="form-group"
-            style={{ marginTop: "12px", marginLeft: "12px" }}
+
           >
-            <label htmlFor="size">Kích cỡ</label>
-            {sizes.map((size,index) => (
-              <div key={index}>
-                <input
-                  name="size"
-                  type="radio"
-                  onChange={handleSelectSize(size)}
-                />
-                <label style={{ marginLeft: "8px" }}>{size}</label>
-              </div>
-            ))}
+            <label htmlFor="size">Kích cỡ *</label>
+            <select className="form-select" aria-label="Default select example" onChange={handleSelectSize()}>
+              <option selected>Chọn</option>
+              {sizes.map((size, index) =>
+              (
+                <option key={index} selected={size === selectedSizes ? true : false} value={size} >{size}</option>
+              )
+              )}
+            </select>
           </div>
           <div
             className="form-group"
-            style={{ marginTop: "12px", marginLeft: "12px" }}
+
           >
-            <label htmlFor="material">Chất liệu</label>
-            {materials.map((material,index) => (
-              <div key={index}>
-                <input
-                  name="material"
-                  type="radio"
-                  onChange={handleSelectMaterial(material)}
-                />
-                <label style={{ marginLeft: "8px" }}>{material}</label>
-              </div>
-            ))}
+            <label htmlFor="material">Chất liệu *</label>
+            <select className="form-select" aria-label="Default select example" onChange={handleSelectMaterial()}>
+              <option selected>Chọn</option>
+              {materials.map((material, index) =>
+              (
+                <option key={index} selected={material === selectedMaterials ? true : false} value={material} >{material}</option>
+              )
+              )}
+            </select>
+
           </div>
           <div
             className="form-group"
-            style={{ marginTop: "12px", marginLeft: "12px" }}
+
           >
-            <label htmlFor="material">Áo</label>
-            {shirtTypes.map((shirt, index) => (
-              <div key={index}>
-                <input
-                  name="type"
-                  type="radio"
-                  onClick={handleSelectType(shirt)}
-                />
-                <label style={{ marginLeft: "8px" }}>{shirt}</label>
+            <p>
+              <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1" onClick={handlerType}>
+                Áo *
+              </button>
+            </p>
+            <div className="collapse" id="collapseExample1">
+              <div className="card card-body">
+              <label htmlFor="material">Áo</label>
+                <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
+                  <option selected>Chọn</option>
+                  {shirtTypes.map((shirt, index) =>
+                  (
+                    <option key={index} selected={shirt === selectType ? true : false} value={shirt} >{shirt}</option>
+                  )
+                  )}
+                </select>
               </div>
-            ))}
-          </div>
-        
-          <div
-            className="form-group"
-            style={{ marginTop: "12px", marginLeft: "12px" }}
-          >
-            <label htmlFor="material">Quần</label>
-            {shortsTypes.map((short, index) => (
-              <div key={index}>
-                <input
-                  name="type"
-                  type="radio"
-                  onClick={handleSelectType(short)}
-                />
-                <label style={{ marginLeft: "8px" }}>{short}</label>
-              </div>
-            ))}
-          </div>
-          <div
-          className="form-group"
-          style={{ marginTop: "12px", marginLeft: "12px" }}
-        >
-          <label htmlFor="material">Trẻ con</label>
-          {clothes.map((short, index) => (
-            <div key={index}>
-              <input
-                name="type"
-                type="radio"
-                onClick={() => setSelectType(short)}
-              />
-              <label style={{ marginLeft: "8px" }}>{short}</label>
             </div>
-          ))}
-        </div>
-        <div
-          className="form-group"
-          style={{ marginTop: "12px", marginLeft: "12px" }}
-        >
-          <label htmlFor="material">Giày</label>
-          {shoes.map((short, index) => (
-            <div key={index}>
-              <input
-                name="type"
-                type="radio"
-                onClick={() => setSelectType(short)}
-              />
-              <label style={{ marginLeft: "8px" }}>{short}</label>
+            
+           
+          </div>
+
+          <div
+            className="form-group"
+          
+          >
+             <p>
+              <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2" onClick={handlerType}>
+                Quần *
+              </button>
+            </p>
+            <div className="collapse" id="collapseExample2">
+              <div className="card card-body">
+              <label htmlFor="material">Quần</label>
+                <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
+                  <option selected>Chọn</option>
+                  {shortsTypes.map((short, index) =>
+                  (
+                    <option key={index} selected={short === selectType ? true : false} value={short} >{short}</option>
+                  )
+                  )}
+                </select>
+              </div>
             </div>
-          ))}
-        </div>
+            
+           
+          </div>
+          <div
+            className="form-group"          
+          >
+             <p>
+              <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3" onClick={handlerType}>
+                Trẻ con *
+              </button>
+            </p>
+            <div className="collapse" id="collapseExample3">
+              <div className="card card-body">
+              <label htmlFor="material">Trẻ con</label>
+                <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
+                  <option selected>Chọn</option>
+                  {clothes.map((short, index) =>
+                  (
+                    <option key={index} selected={short === selectType ? true : false} value={short} >{short}</option>
+                  )
+                  )}
+                </select>
+              </div>
+            </div>
+           
+            
+          </div>
+          <div
+            className="form-group"
+           
+          >
+              <p>
+              <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4" onClick={handlerType}>
+                Phụ kiện *
+              </button>
+            </p>
+            <div className="collapse" id="collapseExample4">
+              <div className="card card-body">
+              <label htmlFor="material">Phụ kiện</label>
+                <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
+                  <option selected>Chọn</option>
+                  {shoes.map((short, index) =>
+                  (
+                    <option key={index} selected={short === selectType ? true : false} value={short} >{short}</option>
+                  )
+                  )}
+                </select>
+              </div>
+            </div>
+           
+          </div>
         </div>
 
         <div className="form-group">
-          <label htmlFor="age">Độ tuổi</label>
+          <label htmlFor="age">Độ tuổi *</label>
           <select
             className="form-control"
             id="age"
             required
             name="age"
-           
+
             onChange={handleChange()}
           >
-            <option>Người lớn</option>
-            <option>Trẻ em</option>
+            <option selected={age === "Adult" ? true : false}>Người lớn</option>
+            <option selected={age === "Kid" ? true : false}>Trẻ em</option>
           </select>
         </div>
         <div className="form-group mb-2">
@@ -568,13 +622,14 @@ function Form({ item }) {
             name="soldQuantity"
             value={soldQuantity}
             onChange={handleChange()}
+            disabled
           />
         </div>
         <hr />
         <button type="button" onClick={handleSubmit} className="btn btn-primary">
           Cập nhật sản phẩm
         </button>
-        </div>
+      </div>
     </div>
   );
 }

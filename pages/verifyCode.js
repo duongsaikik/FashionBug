@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import  Register  from "./Register";
 
-const VerifyCode = ({ show, setShow, code, setSussessState}) => {
+const VerifyCode = ({ show, setShow, code, setSussessState,setvalidatemessage, name, email, password, role}) => {
   const router = useRouter();
 
   const hide = () => {
@@ -20,9 +20,30 @@ const VerifyCode = ({ show, setShow, code, setSussessState}) => {
 
   const handleSubmit = async () => {
     if (code == vcode) {
-      setSussessState(true);
-      swal("Thông báo","Đăng ký thành công","success");
-      hide();
+      const response = await fetch('https://shopbug.herokuapp.com/users/register', {
+        method: 'POST',
+        body: JSON.stringify({
+          name, email, password, role
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const data = await response.json()
+      if (data.exist === 1){
+        console.log(1)
+        setvalidatemessage("Email đã tồn tại");
+        hide();
+      }     
+      else if (data.exist === 2) {
+        setvalidatemessage("Tên đã tồn tại"); 
+        console.log(2);
+        hide();
+      }else{
+        setSussessState(true);
+        swal("Thông báo","Đăng ký thành công","success");
+        hide();
+      } 
     } else {
       setPassnoity("Mã xác nhận không chính xác");
     }
