@@ -24,7 +24,7 @@ const Button = styled.button`
     color: #000;
   }
 `;
-export const getStaticPaths = async () => {
+/* export const getStaticPaths = async () => {
   const res = await fetch("https://shopbug.herokuapp.com/coursesAll");
   const data = await res.json();
 
@@ -50,21 +50,22 @@ export const getStaticProps = async (context) => {
       item: data,
     },
   };
-};
+}; */
 
 function Form({ item }) {
   const router = useRouter();
   const editorRef = useRef();
-  const [formStatus, setFormStatus] = useState(false);
-  const [name, setName] = useState(item.Name);
-  const [description, setDescription] = useState(item.Description);
-  const [sex, setSex] = useState(item.Sex);
-  const [dateIn, setDateIn] = useState(item.DateIn);
-  const [age, setAge] = useState(item.age);
-  const [price, setPrice] = useState(item.Discount ? item.Discount : item.Price);
-  const [discount, setDiscount] = useState(100 / (item.Discount / (item.Discount - item.Price)));
+
+  const [product, setProduct] = useState(null);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [sex, setSex] = useState('');
+  const [dateIn, setDateIn] = useState();
+  const [age, setAge] = useState('');
+  const [price, setPrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
   const [enteringQuantity, setEnteringQuantity] = useState(
-    item.enteringQuantity
+    0
   );
   const [editorLoaded, setEditorLoaded] = useState(false);
   const [colors, setColors] = useState([
@@ -75,13 +76,14 @@ function Form({ item }) {
     "purple",
     "green",
     "gray",
+    "white"
   ]);
   const [shoes, setShoes] = useState([
     "Giày"
   ]);
-  const [selectedColors, setSelectedColors] = useState(item.colors);
+  const [selectedColors, setSelectedColors] = useState('');
   const [sizes, setSizes] = useState(["XS", "S", "M", "L", "XL", "XXL"]);
-  const [selectedSizes, setSelectedSizes] = useState(item.size);
+  const [selectedSizes, setSelectedSizes] = useState('');
   const [materials, setMaterials] = useState(["Cotton", "Thun", "Nilon"]);
   const [shirtTypes, setShirtTypes] = useState([
     "Áo sơ mi",
@@ -102,18 +104,18 @@ function Form({ item }) {
     "Quần thể thao",
     "Đầm",
   ]);
-  const [selectedMaterials, setSelectedMaterials] = useState(item.materials);
-  const [selectType, setSelectType] = useState(item.type);
-  const [soldQuantity, setSoldQuantity] = useState(item.soldQuantity);
-  const [selectedImage, setSelectedImage] = useState(item.Image);
+  const [selectedMaterials, setSelectedMaterials] = useState('');
+  const [selectType, setSelectType] = useState('');
+  const [soldQuantity, setSoldQuantity] = useState(0);
+  const [selectedImage, setSelectedImage] = useState('');
   const [isSucceed, setIsSucceed] = useState("");
   const [imgFire, setImgFire] = useState(null)
-  const [imageUrl, setImageUrl] = useState(item.Image);
-  const [tag, setTag] = useState(item.tag);
+  const [imageUrl, setImageUrl] = useState('');
+  const [tag, setTag] = useState('');
   const { CKEditor, ClassicEditor } = editorRef.current || {};
-  const [data, setData] = useState(item.Description);
+  const [data, setData] = useState('');
 
-  const [announce,setAnnounce] = useState('')
+  const [announce, setAnnounce] = useState('')
 
   useEffect(() => {
     editorRef.current = {
@@ -121,8 +123,34 @@ function Form({ item }) {
       ClassicEditor: require("@ckeditor/ckeditor5-build-classic"),
     };
     setEditorLoaded(true);
-    setImageUrl(item.Image)
+   
   }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch("https://shopbug.herokuapp.com/courses/" + router.query.id);
+      const data = await res.json();
+      console.log(data)
+      setProduct(data)
+      setName(data.Name)
+      setDescription(data.Description)
+      setSex(data.Sex)
+      setAge(data.age)
+      setPrice(data.Discount ? data.Discount : data.Price)   
+      setDiscount(100 / (data.Discount / (data.Discount - data.Price)))
+      setEnteringQuantity(data.enteringQuantity)
+      setSelectedColors(data.colors);
+      setSelectedSizes(data.size)
+      setSelectedMaterials(data.materials);
+      setSelectType(data.type);
+      setSoldQuantity(data.soldQuantity);
+      setSelectedImage(data.Image);
+      setImageUrl(data.Image);
+      setTag(data.tag);
+     
+    }
+    fetchUser();
+  }, [router])
 
   const handleChangeImg = (e) => {
     setImgFire(e.target.files[0]);
@@ -184,10 +212,10 @@ function Form({ item }) {
     const name = e.target.name;
     const value = e.target.value;
     if (name == "name") {
-      if(value === ""){
+      if (value === "") {
         setAnnounce("tên của sản phẩm")
-      }else
-      setName(value);
+      } else
+        setName(value);
     } else if (name == "description") {
       setDescription(value);
     } else if (name == "imageUrl") {
@@ -212,16 +240,16 @@ function Form({ item }) {
         setAge("Kid");
     }
   };
-  
+
   const handleSubmit = async () => {
     if (name === "" || sex === "" || price === "" || age === "" || selectedColors === "" || selectedSizes === "" || selectType === "" || selectedMaterials === "") {
-      swal("Thông báo", "Thông tin cung cấp cho " + announce +" còn thiếu", "error")
+      swal("Thông báo", "Thông tin cung cấp cho " + announce + " còn thiếu", "error")
     } else if (Number(price) < 0) {
       swal("Thông báo", "Giá tiền phải lớn hơn 0", "error")
     } else if (imgFire === null) {
       axios
         .put(
-          "https://shopbug.herokuapp.com/courses/" + item._id,
+          "https://shopbug.herokuapp.com/courses/" + router.query.id,
           {
             Name: name,
             Description: description,
@@ -244,7 +272,7 @@ function Form({ item }) {
         )
         .then(function (response) {
           console.log(response);
-          
+
           router.push(router.asPath);
         })
         .catch(function (error) {
@@ -253,49 +281,51 @@ function Form({ item }) {
     } else
       handleSave();
   };
-  const handleSelectColor = () => (color) => {  
-    if(color.target.value === "Chọn"){
-      setSelectedColors(""); 
-      setAnnounce("màu của sản phẩm") 
-    }else{
-      setSelectedColors(color.target.value);  
+  const handleSelectColor = () => (color) => {
+    if (color.target.value === "Chọn") {
+      setSelectedColors("");
+      setAnnounce("màu của sản phẩm")
+    } else {
+      setSelectedColors(color.target.value);
     }
 
   };
   const handleSelectMaterial = () => (material) => {
-    if(material.target.value === "Chọn"){
-      setSelectedMaterials("");  
-      setAnnounce("chất liệu của sản phẩm") 
-    }else
-    setSelectedMaterials(material.target.value);
+    if (material.target.value === "Chọn") {
+      setSelectedMaterials("");
+      setAnnounce("chất liệu của sản phẩm")
+    } else
+      setSelectedMaterials(material.target.value);
   };
   const handleSelectSize = () => (size) => {
-    if(size.target.value === "Chọn"){
-      setSelectedSizes("");  
-      setAnnounce("size của sản phẩm") 
-    }else
-    setSelectedSizes(size.target.value);
+    if (size.target.value === "Chọn") {
+      setSelectedSizes("");
+      setAnnounce("size của sản phẩm")
+    } else
+      setSelectedSizes(size.target.value);
   };
   const handleSelectType = () => (type) => {
-    if(type.target.value === "Chọn"){
-      setSelectType("");  
-      setAnnounce("loại của sản phẩm") 
-    }else
-    setSelectType(type.target.value);
-    
+    if (type.target.value === "Chọn") {
+      setSelectType("");
+      setAnnounce("loại của sản phẩm")
+    } else
+      setSelectType(type.target.value);
+
   };
- 
-  const handlerType = (e) =>{
+
+  const handlerType = (e) => {
     const btn = document.querySelectorAll('.collapse')
-     btn.forEach(function(ele,index) {
-      if(ele !== e.target){
+    btn.forEach(function (ele, index) {
+      if (ele !== e.target) {
         ele.classList.remove('show');
       }
-    }) 
+    })
   }
 
   return (
-    <div className="container_add">
+    
+     
+      <div className="container_add">
       <div className="add_body">
         <Link href={"/course"}>
           <Button>
@@ -317,7 +347,7 @@ function Form({ item }) {
           />
 
         </div>
-      
+
         <div className="form-group mb-2">
           <label htmlFor="name">Tên sản phẩm *</label>
           <input
@@ -350,7 +380,7 @@ function Form({ item }) {
                   "redo",
                 ],
               }}
-              data={data}
+              data={description}
               onReady={(editor) => {
                 // You can store the "editor" and use when it is needed.
               }}
@@ -494,7 +524,7 @@ function Form({ item }) {
             </p>
             <div className="collapse" id="collapseExample1">
               <div className="card card-body">
-              <label htmlFor="material">Áo</label>
+                <label htmlFor="material">Áo</label>
                 <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
                   <option selected>Chọn</option>
                   {shirtTypes.map((shirt, index) =>
@@ -505,22 +535,22 @@ function Form({ item }) {
                 </select>
               </div>
             </div>
-            
-           
+
+
           </div>
 
           <div
             className="form-group"
-          
+
           >
-             <p>
+            <p>
               <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2" onClick={handlerType}>
                 Quần *
               </button>
             </p>
             <div className="collapse" id="collapseExample2">
               <div className="card card-body">
-              <label htmlFor="material">Quần</label>
+                <label htmlFor="material">Quần</label>
                 <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
                   <option selected>Chọn</option>
                   {shortsTypes.map((short, index) =>
@@ -531,20 +561,20 @@ function Form({ item }) {
                 </select>
               </div>
             </div>
-            
-           
+
+
           </div>
           <div
-            className="form-group"          
+            className="form-group"
           >
-             <p>
+            <p>
               <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3" onClick={handlerType}>
                 Trẻ con *
               </button>
             </p>
             <div className="collapse" id="collapseExample3">
               <div className="card card-body">
-              <label htmlFor="material">Trẻ con</label>
+                <label htmlFor="material">Trẻ con</label>
                 <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
                   <option selected>Chọn</option>
                   {clothes.map((short, index) =>
@@ -555,21 +585,21 @@ function Form({ item }) {
                 </select>
               </div>
             </div>
-           
-            
+
+
           </div>
           <div
             className="form-group"
-           
+
           >
-              <p>
+            <p>
               <button className="btn btn-primary type" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4" onClick={handlerType}>
                 Phụ kiện *
               </button>
             </p>
             <div className="collapse" id="collapseExample4">
               <div className="card card-body">
-              <label htmlFor="material">Phụ kiện</label>
+                <label htmlFor="material">Phụ kiện</label>
                 <select className="form-select" aria-label="Default select example" onChange={handleSelectType()}>
                   <option selected>Chọn</option>
                   {shoes.map((short, index) =>
@@ -580,7 +610,7 @@ function Form({ item }) {
                 </select>
               </div>
             </div>
-           
+
           </div>
         </div>
 
@@ -631,6 +661,9 @@ function Form({ item }) {
         </button>
       </div>
     </div>
+    
+    
+    
   );
 }
 export default Form;
