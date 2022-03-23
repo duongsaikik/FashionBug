@@ -118,12 +118,12 @@ const Detail = ({
 
   const Calcula = (event) => {
     if (event.target.value === "+") {
-      if (amount < 100000 && (enteringQuantity - soldQuantity) > amount) {
+      if (amount < 6 && (enteringQuantity - soldQuantity) > amount) {
         setAmount((pre) => {
           return pre + 1;
         });
       } else {
-        swal("Thông báo", "Số lượng tồn kho không thể đáo ứng hơn", "error")
+        swal("Thông báo", "Số lượng tồn kho không thể đáp ứng hơn", "error")
       }
     } else {
       if (amount > 1)
