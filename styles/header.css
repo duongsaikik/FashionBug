@@ -83,24 +83,23 @@ a {
     margin: 0;
    
 }
-.content_header_bt_body li {
 
-}
-.content_header_bt_body li span {
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  text-transform: uppercase;
+.content_header_bt_body li button{
+  margin: 0;
+  padding: 10px;
+  background: white;
+  outline: none;
+  border: none;
   cursor: pointer;
   font-size: 12px;
   line-height: 10px;
-  
+  font-weight: 600;
 }
-.content_header_bt_body li:hover span {
+.content_header_bt_body li:hover button {
   color: white;
  background-color: lightskyblue;
 }
-.content_header_bt_body li span::after {
+.content_header_bt_body li button::after {
   display: inline-block;
   margin-top: 3px;
   width: 0;

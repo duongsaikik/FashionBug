@@ -301,13 +301,13 @@ const Headerr = (props) => {
               <div className="bottom_header_body">
                 <ul className="content_header_bt_body">
                   <li id="outLine_male_type">
-                    <span id="male_type"
+                    <button id="male_type"
                       onClick={() => {
                         router.push(`/container/${male.type}?age=Adult`);
                       }}
                     >
                       Nam
-                    </span>
+                    </button>
                     <div className="item_of_title">
                       <div className="item_of_title_body">
                         <div className="row_male">
@@ -326,13 +326,13 @@ const Headerr = (props) => {
                     </div>
                   </li>
                   <li id="outLine_female_type">
-                    <span id="female_type"
+                    <button id="female_type"
                       onClick={() => {
                         router.push(`/container/${female.type}?age=Adult`);
                       }}
                     >
                       Nữ
-                    </span>
+                    </button>
                     <div className="item_of_title">
                       <div className="item_of_title_body">
                         <div className="row_item">
@@ -354,13 +354,13 @@ const Headerr = (props) => {
                     </div>
                   </li>
                   <li id="outLine_kid_type">
-                    <span id="kid_type"
+                    <button id="kid_type"
                       onClick={() => {
                         router.push(`/container/${kid.type}`);
                       }}
                     >
                       Trẻ Con
-                    </span>
+                    </button>
                     <div className="item_of_title">
                       <div className="item_of_title_body">
                         <div className="row_item">
