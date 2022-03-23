@@ -32,12 +32,9 @@ const Productcontent = ({id,image,name, color, discount, price,onAddToCart}) => 
                         <img src={image} alt={image}/>
                         <div className="product-detail-link">
                             <div className="product-detail-link-hover">
-
-                                <Link
-
+                                <Link 
                                     href={`${path}/details?id=${id}`}
-
-                                ><a>VIEW</a></Link>
+                                ><a id={id}>VIEW</a></Link>
 
                             </div>
                         </div>
