@@ -41,7 +41,7 @@ const Productcontent = ({id,image,name, color, discount, price,onAddToCart}) => 
                     </div>
                     <div className="product-name_price-content">
                         <Link
-                            href={`${path}/details?id=${id}`}><a><h5>{name}</h5></a></Link>
+                            href={`${path}/details?id=${id}`}><a><h5 className="name_product">{name}</h5></a></Link>
                         <div className="product_price">
                             <p className="text-dark">
                                 <NumberFormat value={price} displayType={'text'} thousandSeparator={true} suffix={'đ'} />
