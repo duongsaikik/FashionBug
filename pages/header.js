@@ -301,7 +301,7 @@ const Headerr = (props) => {
               <div className="bottom_header_body">
                 <ul className="content_header_bt_body">
                   <li>
-                    <span
+                    <span id="male_type"
                       onClick={() => {
                         router.push(`/container/${male.type}?age=Adult`);
                       }}
@@ -326,7 +326,7 @@ const Headerr = (props) => {
                     </div>
                   </li>
                   <li>
-                    <span
+                    <span id="female_type"
                       onClick={() => {
                         router.push(`/container/${female.type}?age=Adult`);
                       }}
@@ -354,7 +354,7 @@ const Headerr = (props) => {
                     </div>
                   </li>
                   <li>
-                    <span
+                    <span id="kid_type"
                       onClick={() => {
                         router.push(`/container/${kid.type}`);
                       }}
