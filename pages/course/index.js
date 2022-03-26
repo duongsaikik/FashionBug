@@ -187,7 +187,7 @@ export default function Home({ data }) {
                 </tr>
               </thead>
               <tbody>
-                 {tableData ? tableData.map((item,index) => (
+                 {tableData.length > 0 ? tableData.map((item,index) => (
                   <tr key={index}>
                     <td>{item.Name}</td>
                     <td>
