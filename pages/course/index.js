@@ -187,7 +187,7 @@ export default function Home({ data }) {
                 </tr>
               </thead>
               <tbody>
-                 {tableData.map((item,index) => (
+                 {tableData ? tableData.map((item,index) => (
                   <tr key={index}>
                     <td>{item.Name}</td>
                     <td>
@@ -219,7 +219,7 @@ export default function Home({ data }) {
                       </Link>
                     </td>
                   </tr>
-                )) } 
+                )) :'Không có sản phẩm nào phù hợp'} 
               </tbody>
             </table>
           </div>
