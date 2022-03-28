@@ -146,8 +146,9 @@ body {
   font-weight: 500;
 }
 .line_price {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  justify-content: left;
+ 
 }
 .line_price .MenuItem {
   display: flex;
@@ -361,6 +362,17 @@ section {
 }
 .paginationActive li {
   background-color: lightskyblue;
+}
+.range_price_radio{
+  margin: 5px 4px 5px 10px;
+}
+
+.range_price_radio span{
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 0.9em;
+  font-weight: 600;
+  
 }
 @media screen and (min-width: 576px) {
   .body-container {

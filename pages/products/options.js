@@ -15,26 +15,87 @@ const Option = (props) => {
   const newPath = path.slice(0, 1).toString();
   const clickColor = useRef([])
   const [pricerange, setPriceRange] = useState([router.query.lowPrice ? router.query.lowPrice : 0, router.query.upPrice ? router.query.upPrice : 2000000]);
-  const [chooseSize, setChooseSize] = useState(router.query.size? router.query.size : "");
+  const [chooseSize, setChooseSize] = useState(router.query.size ? router.query.size : "");
   const [chooseColor, setChooseColor] = useState(router.query.color ? router.query.color : "");
-  
+
   const updateRange = (eve, value) => {
-    setPriceRange(value);
+    
+      console.log(eve.target.id)
+     switch(eve.target.id){
+        case 'range_price1' : 
+        {
+          setPriceRange([
+            0,
+            400000
+          ]);
+          const currentQuery = router.query;
+          currentQuery.lowPrice = 0;
+          currentQuery.upPrice = 400000,
+          router.push({
+            pathname:router.pathname,
+            query:currentQuery
+          })
+          break;
+        }
+        case 'range_price2' : 
+        {
+          setPriceRange([
+            400000,
+            800000
+          ]);
+          const currentQuery = router.query;
+          currentQuery.lowPrice = 400000;
+          currentQuery.upPrice = 800000,
+          router.push({
+            pathname:router.pathname,
+            query:currentQuery
+          })
+          break;
+        }
+        case 'range_price3' : 
+        {
+          setPriceRange([
+            800000,
+            1200000
+          ]);
+          const currentQuery = router.query;
+          currentQuery.lowPrice = 800000;
+          currentQuery.upPrice = 1200000,
+          router.push({
+            pathname:router.pathname,
+            query:currentQuery
+          })
+          break;
+        }
+      default : setPriceRange([
+        1200000,
+        1600000
+      ]);
+      const currentQuery = router.query;
+          currentQuery.lowPrice = 1200000;
+          currentQuery.upPrice = 1600000,
+          router.push({
+            pathname:router.pathname,
+            query:currentQuery
+          })
+    } 
+   /*  setPriceRange(value); */
   }
+  
   const hanldeSize = (size, index) => {
     setChooseSize(size)
   }
- 
+
   const hanldeColor = (color, index) => {
     clickColor.current[index].click();
     const choose = document.querySelectorAll('.showColor_body');
     // console.log(clickColor.current[index].value)
     // choose[index].getAttribute("value") === 
     choose.forEach(l => l.classList.remove('activeColor'));
-    if(clickColor.current[index].checked){
+    if (clickColor.current[index].checked) {
       choose[index].classList.add('activeColor');
       setChooseColor(color)
-    }else{
+    } else {
       setChooseColor(null)
       choose.forEach(l => l.classList.remove('activeColor'));
     }
@@ -44,25 +105,25 @@ const Option = (props) => {
     // choose.forEach(l => l.classList.remove('activeColor')); 
     // choose[index].classList.toggle('activeColor');
   }
-  useEffect(() =>{
+  useEffect(() => {
     var check = document.querySelectorAll(".pro_size");
     check.forEach(function (checkbox) {
       // const i =(checkbox.target.attributes.size.value); 
-        if (checkbox.value === chooseSize) {
-          checkbox.checked = true; 
-        }           
+      if (checkbox.value === chooseSize) {
+        checkbox.checked = true;
+      }
     });
     var checkcolor = document.querySelectorAll(".sh");
     checkcolor.forEach(function (checkbox) {
       if (checkbox.value === chooseColor) {
-          checkbox.checked = true; 
-      }   
+        checkbox.checked = true;
+      }
     });
-   
+
   })
   const Changesize = (ev) => {
     var k = 0;
-    
+
     var check = document.querySelectorAll(".pro_size");
     check.forEach(function (checkbox) {
       if (checkbox.checked && checkbox !== ev.target) {
@@ -79,13 +140,12 @@ const Option = (props) => {
   const ChangeColor = (ev) => {
     var k = 0;
     var check = document.querySelectorAll(".sh");
-   
+
     check.forEach(function (checkbox) {
-     
-      if (checkbox.checked && checkbox !== ev.target) 
-      { 
-      
-        checkbox.checked = false; 
+
+      if (checkbox.checked && checkbox !== ev.target) {
+
+        checkbox.checked = false;
       }
       else if (checkbox.checked) {
         k = 1;
@@ -93,14 +153,14 @@ const Option = (props) => {
     });
     if (k == 0) {
       setChooseColor(null);
-      
+
       // const choose = document.querySelectorAll('.showColor_body');
       // choose.forEach(l => l.classList.remove('activeColor'));
     }
   }
   var EleSize = AmountSize ? AmountSize.map((size, index) => {
     return <li key={index}>
-      <label> <input type="checkbox" value={size.size}  name="size" className="pro_size" onChange={Changesize} onClick={() => { hanldeSize(size.size, index) }} />{size.size}</label>
+      <label> <input type="checkbox" value={size.size} name="size" className="pro_size" onChange={Changesize} onClick={() => { hanldeSize(size.size, index) }} />{size.size}</label>
       <span className="option_color_name">({size.amountSize})</span>
     </li>
   }) : '';
@@ -119,8 +179,8 @@ const Option = (props) => {
   }
   var showColor = AmountColor ? AmountColor.map((color, index) => {
     return <div key={index} className="option_body_color">
-      <input type="checkbox" value={color.colors} className="hidden_color_chec sh"  onChange={ChangeColor} ref={el => clickColor.current[index] = el} />
-      <label value={color.colors} color={color.colors}  className={router.query.color === color.colors ? "showColor_body color_item hove activeColor" : "showColor_body color_item hove"} >
+      <input type="checkbox" value={color.colors} className="hidden_color_chec sh" onChange={ChangeColor} ref={el => clickColor.current[index] = el} />
+      <label value={color.colors} color={color.colors} className={router.query.color === color.colors ? "showColor_body color_item hove activeColor" : "showColor_body color_item hove"} >
         <span style={ShowColor(color.colors)}
           className="showColor"
           id="Color"
@@ -136,87 +196,55 @@ const Option = (props) => {
     router.push({
       pathname: newPath,
       query: {
-        age:router.query.age,
+        age: router.query.age,
         result: router.query.result ? router.query.result : null,
-        color:  chooseColor ,
-        size: chooseSize ,
-        lowPrice: pricerange[0] ,
-        upPrice: pricerange[1] 
+        color: chooseColor,
+        size: chooseSize,
+        lowPrice: pricerange[0],
+        upPrice: pricerange[1]
       }
     });
-    // if (chooseColor && chooseSize) {
-    //   Router.push({
-    //     pathname: newPath,
-    //     query: {
-    //       age:router.query.age,
-    //       result: router.query.result ? router.query.result : null,
-    //       color: chooseColor,
-    //       size: chooseSize,
-    //       lowPrice: pricerange[0],
-    //       upPrice: pricerange[1]
-    //     }
-    //   });
-    // }
-    // else if (chooseColor) {
-    //   Router.push({
-    //     pathname: newPath,
-    //     query: {
-    //       age:router.query.age,
-    //       result: router.query.result ? router.query.result : null,
-    //       color: chooseColor,
-    //       lowPrice: pricerange[0],
-    //       upPrice: pricerange[1]
-    //     }
-    //   });
-    // } else if (chooseSize) {
-    //   Router.push({
-    //     pathname: newPath,
-    //     query: {
-    //       age:router.query.age,
-    //       result: router.query.result ? router.query.result : null,
-    //       size: chooseSize,
-    //       lowPrice: pricerange[0],
-    //       upPrice: pricerange[1]
-    //     }
-    //   });
-    // } else {
-    //   Router.push({
-    //     pathname: newPath,
-    //     query: {
-    //       age:router.query.age,
-    //       result: router.query.result ? router.query.result : null,
-    //       lowPrice: pricerange[0],
-    //       upPrice: pricerange[1]
-    //     }
-    //   });
-    // }
+  
   }
-  const handleClear = () =>{
+  const handleClear = () => {
     const choose = document.querySelectorAll('.showColor_body');
     choose.forEach(l => l.classList.remove('activeColor'));
-   
+
     var check = document.querySelectorAll(".pro_size");
-    check.forEach(function (checkbox) {    
-        checkbox.checked = false;     
+    check.forEach(function (checkbox) {
+      checkbox.checked = false;
     });
     Router.push(
       {
         pathname: newPath,
-        query:{
-          age:router.query.age,
+        query: {
+          age: router.query.age,
           result: router.query.result ? router.query.result : null,
         }
       }
-        
-      )
+
+    )
   }
-  const handleDrop = (e) =>{
-    const i =Number(e.target.attributes.num.value);
+  const handleDrop = (e) => {
+    const i = Number(e.target.attributes.num.value);
     const head = document.querySelectorAll('.content-tittle')
-      head[i].classList.toggle('active_arrow')
-      const title = document.querySelectorAll('.drop_down_op')
-      title[i].classList.toggle('delete_drop');
+    head[i].classList.toggle('active_arrow')
+    const title = document.querySelectorAll('.drop_down_op')
+    title[i].classList.toggle('delete_drop');
   }
+  
+  useEffect(() =>{
+    const range = document.querySelectorAll('.range_price');
+     range.forEach(function (checkbox) {
+      
+      if(checkbox.value === router.query.upPrice)
+      {
+        checkbox.checked = true;
+      }
+     
+    })
+    
+  },[router])
   return (
     <>
       <div className="body-nav" id="body-nav">
@@ -226,18 +254,82 @@ const Option = (props) => {
 
             <h4 className="content-tittle active_arrow" num="0" onClick={handleDrop}>Price Range</h4>
             <div className="drop_down_op delete_drop">
-              <span className="price-min kk"><NumberFormat value={pricerange[0]} displayType={'text'} thousandSeparator={true} suffix={'đ'} /></span>
-              -
-              <span className="price-max kk"><NumberFormat value={pricerange[1]} displayType={'text'} thousandSeparator={true} suffix={'đ'} /></span>
+           
               <div className="line_price">
-                <Slider
+                {/*  <Slider
                   className="MenuItem"
                   value={pricerange}
                   max={10000000}
                   min={0}
                   onChange={updateRange}
                 >
-                </Slider>
+                </Slider> */}
+                
+                <div className="range_price_radio">
+                  <input type="radio" value={400000}  name="range_price" className="range_price" id="range_price1"  onChange={updateRange}/>
+                  <NumberFormat
+                  value={0}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  suffix={"đ"}
+                  
+                /> 
+                   - 
+                  <NumberFormat
+                  value={400000}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  suffix={"đ"}
+                />
+                </div>
+                <div className="range_price_radio">
+                  <input type="radio" value={800000}  name="range_price" className="range_price" id="range_price2"  onChange={updateRange}/>
+                  <NumberFormat
+                  value={400000}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  suffix={"đ"}
+                /> 
+                   - 
+                  <NumberFormat
+                  value={800000}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  suffix={"đ"}
+                />
+                </div >
+                <div className="range_price_radio">
+                  <input type="radio" value={1200000}  name="range_price" className="range_price" id="range_price3"  onChange={updateRange}/>
+                  <NumberFormat
+                  value={800000}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  suffix={"đ"}
+                /> 
+                   - 
+                  <NumberFormat
+                  value={1200000}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  suffix={"đ"}
+                />
+                </div>
+                <div className="range_price_radio">
+                  <input type="radio" value={1600000}  name="range_price" className="range_price" id="range_price4"  onChange={updateRange}/>
+                  <NumberFormat
+                  value={1200000}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  suffix={"đ"}
+                /> 
+                   - 
+                  <NumberFormat
+                  value={1600000}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  suffix={"đ"}
+                />
+                </div>
               </div>
             </div>
           </div>
