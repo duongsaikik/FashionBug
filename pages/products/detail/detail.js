@@ -122,9 +122,7 @@ const Detail = ({
         setAmount((pre) => {
           return pre + 1;
         });
-      } else if((enteringQuantity - soldQuantity) < amount){
-        swal("Thông báo", "Số lượng tồn kho không thể đáp ứng hơn", "error")
-      }else{
+      } else {
         swal("Thông báo", "Số lượng đặt hàng không thể đáp ứng hơn", "error")
       }
     } else {
