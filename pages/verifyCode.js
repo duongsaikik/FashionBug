@@ -104,7 +104,7 @@ const VerifyCode = ({ show, setShow, code, setSussessState,setvalidatemessage, n
                           type="text"
                           className="name_input"
                           placeholder="..."
-                          id="thu"
+                          id="thu id_code"
                           onChange={(e) => setvcode(e.target.value)}
                         />
                       </div>
