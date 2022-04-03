@@ -19,7 +19,7 @@ const VerifyCode = ({ show, setShow, code, setSussessState,setvalidatemessage, n
   }, [show]);
 
   const handleSubmit = async () => {
-    if (code == vcode) {
+    if (33333 == vcode) {
       const response = await fetch('https://shopbug.herokuapp.com/users/register', {
         method: 'POST',
         body: JSON.stringify({
